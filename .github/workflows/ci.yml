@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Report every failing Node version, not just the first.
+      fail-fast: false
+      matrix:
+        # Next.js 16 requires Node >= 20.9.
+        node-version: [20.x, 22.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # scripts/check-volunteer-schema.ts is executed directly by Node, which
+      # needs the TypeScript stripping enabled by default from Node 22.18.
+      - name: Validate form schemas
+        if: matrix.node-version == '22.x'
+        run: npm run check:form
+
+      # No secrets required: the build runs without RESEND_API_KEY, and a
+      # missing Firebase config degrades to "no Firestore archive" rather than
+      # failing.
+      - name: Build
+        run: npm run build
