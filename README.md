@@ -39,9 +39,11 @@ These need real values. Each is marked with a `TODO` comment in the source.
 3. **Project copy and figures** — `src/lib/projects.ts` contains the five
    project descriptions and the impact statistics. The numbers are
    placeholders and should be replaced with audited figures.
-4. **Domain** — set `site.url` in `src/lib/site.ts`. It feeds the sitemap,
-   robots.txt and social share metadata.
-5. **Volunteer form email** — see below.
+4. **Email addresses** — `site.email` and `site.volunteerEmail` in
+   `src/lib/site.ts` are temporarily a personal Gmail address. They are shown
+   publicly and are where form submissions are delivered, so replace them with
+   a mailbox on `azrasafdar.org` once one exists.
+5. **Form email delivery** — see below.
 
 ## Forms
 
@@ -203,10 +205,24 @@ NEXT_PUBLIC_FIREBASE_APP_ID
 The `NEXT_PUBLIC_` values are inlined at build time, so changing one needs a
 redeploy, not just a restart. Values are in `.env.local`.
 
-Once a custom domain is attached, set `site.url` in `src/lib/site.ts` — it
-feeds the sitemap, robots.txt and share metadata — and add the domain to
-Firebase console → Authentication → Settings → Authorized domains if you ever
-add Firebase Auth.
+### Domain
+
+`azrasafdar.org` is registered with GoDaddy, and `site.url` in
+`src/lib/site.ts` already points at it — that value feeds the sitemap,
+robots.txt and share metadata.
+
+The apex domain is the primary; `www` redirects to it. To connect it, add both
+`azrasafdar.org` and `www.azrasafdar.org` in Vercel under Settings → Domains,
+then copy the **A record IP and CNAME target Vercel shows you** into GoDaddy's
+DNS manager. Do not reuse values from a guide: Vercel assigns each project its
+own Anycast IP and its own `*.vercel-dns-*.com` CNAME target.
+
+In GoDaddy, delete the parked-page records GoDaddy creates by default (an `A`
+record on `@` pointing at their holding page, and the `www` CNAME), or they
+will conflict.
+
+If you ever add a CAA record to the domain, it must include
+`0 issue "letsencrypt.org"` or Vercel cannot issue the SSL certificate.
 
 > Firebase App Hosting was the original plan but requires the Blaze
 > pay-as-you-go plan. Vercel's free tier runs this app in full, Server Actions

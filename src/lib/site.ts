@@ -11,12 +11,14 @@ export const site = {
   tagline: "Empowering students, enriching futures",
   description:
     "Azra Safdar Foundation is an education-led non-profit based in Faisalabad, Pakistan. We keep students in school through free education and tutorship, and support widows and families with healthcare and Ramzan ration packs.",
-  // TODO: replace with the live domain once it is registered.
-  url: "https://azrasafdarfoundation.org",
+  url: "https://azrasafdar.org",
   locale: "en_PK",
   founded: 2019, // TODO: confirm the year the foundation started
-  email: "info@azrasafdarfoundation.org", // TODO: confirm
-  volunteerEmail: "info@azrasafdarfoundation.org", // TODO: confirm
+  // TODO: temporary. Replace both with a mailbox on azrasafdar.org once it
+  // exists — these are shown publicly in the footer and on the contact page,
+  // and they are where form submissions are delivered.
+  email: "alihumza.dev@gmail.com",
+  volunteerEmail: "alihumza.dev@gmail.com",
   phone: "+92 307 6699514",
   // Digits only, including country code, for tel: and wa.me links.
   phoneDigits: "923076699514",
