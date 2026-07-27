@@ -4,7 +4,12 @@ import { useActionState, useEffect, useId, useRef } from "react";
 import { CheckCircle2Icon, ChevronDownIcon, LoaderCircleIcon } from "lucide-react";
 import { toast } from "sonner";
 import { submitVolunteerApplication } from "@/lib/actions/volunteer";
-import { initialVolunteerState, volunteerInterests } from "@/lib/volunteer";
+import {
+  initialVolunteerState,
+  volunteerInterests,
+  type VolunteerState,
+} from "@/lib/volunteer";
+import { archiveVolunteerApplication } from "@/lib/firebase/submissions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,7 +24,11 @@ import {
 
 export function VolunteerForm() {
   const [state, formAction, pending] = useActionState(
-    submitVolunteerApplication,
+    async (previous: VolunteerState, formData: FormData) => {
+      const result = await submitVolunteerApplication(previous, formData);
+      if (result.status === "success") await archiveVolunteerApplication(formData);
+      return result;
+    },
     initialVolunteerState,
   );
   const formRef = useRef<HTMLFormElement>(null);

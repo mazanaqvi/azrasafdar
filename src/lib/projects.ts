@@ -22,7 +22,6 @@ export type Project = {
   summary: string;
   /** Two or three paragraphs, used on the project page. */
   body: string[];
-  image: string;
   icon: LucideIcon;
   pillar: Pillar;
   /** Displayed as a labelled figure on the project page. */
@@ -51,7 +50,6 @@ export const projects: Project[] = [
       "Students are enrolled for a full academic year at a time, so no one loses their place mid-session. Where a household depends on a child's earnings, we add a monthly stipend that offsets what the child would have brought home, because asking a family to choose between food and schooling is not a real choice.",
       "Places are prioritised for students at the points where drop-out is most likely — around grade five, and earlier for girls.",
     ],
-    image: "/images/projects/students-education.jpg",
     icon: GraduationCapIcon,
     pillar: "education",
     stat: { value: "2,400+", label: "students supported to date" },
@@ -83,7 +81,6 @@ export const projects: Project[] = [
       "Our free tuition centres run small-group sessions after school hours, taught by paid local teachers alongside volunteer tutors. Class sizes are deliberately small so that a student who is struggling is noticed in the first week rather than at the end of term.",
       "We review attendance and grades every term for every student we support. When attendance drops, the response is a home visit to find out why — not withdrawal of support.",
     ],
-    image: "/images/projects/free-education-tutorship.jpg",
     icon: BookOpenCheck,
     pillar: "education",
     stat: { value: "310", label: "students tutored every week" },
@@ -115,7 +112,6 @@ export const projects: Project[] = [
       "Each pack contains a month's staples for an average household: flour, rice, cooking oil, pulses, sugar, tea, dates and spices. Packs are delivered to the home by volunteers, which keeps the process private and lets us check on families we already know through the education and widows projects.",
       "Recipients are drawn from our verified list, with priority given to widow-headed households and the families of students we support.",
     ],
-    image: "/images/projects/ramzan-ration-pack.jpg",
     icon: ShoppingBasketIcon,
     pillar: "welfare",
     stat: { value: "6,500", label: "ration packs distributed" },
@@ -148,7 +144,6 @@ export const projects: Project[] = [
       "We provide a monthly stipend to widow-headed households on our verified list, alongside skills training in stitching, embroidery and small-scale food production, plus small grants for the equipment needed to start earning independently.",
       "The aim is not indefinite assistance. It is to get a household through the period after a bereavement without the children being pulled out of school, and to leave the mother with an income she controls.",
     ],
-    image: "/images/projects/widows-support.jpg",
     icon: HandHeartIcon,
     pillar: "welfare",
     stat: { value: "180", label: "households receiving monthly support" },
@@ -180,7 +175,6 @@ export const projects: Project[] = [
       "Our free medical camps bring general physicians, paediatric care and basic diagnostics into neighbourhoods where the nearest functioning facility is hours away or unaffordable. Medicines are dispensed on site at no cost.",
       "Patients who need specialist treatment, surgery or ongoing medication are referred onward, and the foundation covers the cost where the family cannot. We follow up rather than assuming a referral was acted on.",
     ],
-    image: "/images/projects/health-support.jpg",
     icon: HeartPulseIcon,
     pillar: "welfare",
     stat: { value: "18,000", label: "patients seen at free camps" },

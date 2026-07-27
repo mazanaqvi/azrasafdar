@@ -16,8 +16,6 @@ const frontmatterSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "date must be YYYY-MM-DD"),
   excerpt: z.string().min(1),
   category: z.enum(["Education", "Healthcare", "Welfare", "Ramzan", "Foundation"]),
-  image: z.string().startsWith("/").optional(),
-  imageAlt: z.string().optional(),
   author: z.string().optional(),
 });
 

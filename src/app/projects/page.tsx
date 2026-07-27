@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
@@ -16,54 +15,48 @@ export const metadata: Metadata = {
 };
 
 function ProjectCard({ project }: { project: Project }) {
-  const { slug, title, summary, image, icon: Icon, stat, seasonal } = project;
+  const { slug, title, summary, icon: Icon, stat, seasonal } = project;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl bg-card ring-1 ring-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25">
-      <div className="relative aspect-16/10 overflow-hidden">
-        <Image
-          src={image}
-          alt=""
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-linear-to-t from-brand-deeper/70 via-transparent to-transparent"
-        />
-        <span className="absolute left-5 top-5 grid size-12 place-items-center rounded-xl bg-background/95 text-primary shadow-xs backdrop-blur">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-card p-8 ring-1 ring-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25">
+      {/* Accent bar animates in on hover to signal interactivity. */}
+      <span
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-linear-to-r from-primary to-lime transition-transform duration-300 group-hover:scale-x-100"
+      />
+
+      <div className="flex items-start justify-between gap-4">
+        <span className="grid size-13 place-items-center rounded-xl bg-secondary text-primary ring-1 ring-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
           <Icon className="size-6" />
         </span>
         {seasonal && (
-          <span className="absolute right-5 top-5 rounded-full bg-lime px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-wider text-lime-foreground">
+          <span className="rounded-full bg-lime px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-wider text-lime-foreground">
             Seasonal
           </span>
         )}
-        <div className="absolute bottom-4 left-5">
-          <p className="font-display text-2xl font-semibold leading-none text-white">
-            {stat.value}
-          </p>
-          <p className="mt-1 text-xs text-white/75">{stat.label}</p>
-        </div>
       </div>
 
-      <div className="flex flex-1 flex-col p-7">
-        <h3 className="text-2xl font-semibold">
-          <Link
-            href={`/projects/${slug}`}
-            className="transition-colors after:absolute after:inset-0 group-hover:text-primary"
-          >
-            {title}
-          </Link>
-        </h3>
-        <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">
-          {summary}
-        </p>
-        <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-          About this project
-          <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" />
+      <h3 className="mt-7 text-2xl font-semibold">
+        <Link
+          href={`/projects/${slug}`}
+          className="transition-colors after:absolute after:inset-0 group-hover:text-primary"
+        >
+          {title}
+        </Link>
+      </h3>
+
+      <p className="mt-3.5 flex-1 text-[0.975rem] leading-relaxed text-muted-foreground">
+        {summary}
+      </p>
+
+      <div className="mt-6 flex items-center justify-between gap-4 border-t border-border pt-5">
+        <span className="text-sm text-muted-foreground">
+          <span className="font-display text-lg font-semibold text-primary">
+            {stat.value}
+          </span>{" "}
+          {stat.label}
         </span>
+        <ArrowRightIcon className="size-4 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
       </div>
     </article>
   );

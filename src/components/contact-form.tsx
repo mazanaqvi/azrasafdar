@@ -15,11 +15,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { submitContactEnquiry } from "@/lib/actions/contact";
-import { enquiryTopics, initialContactState } from "@/lib/contact";
+import { enquiryTopics, initialContactState, type ContactState } from "@/lib/contact";
+import { archiveContactEnquiry } from "@/lib/firebase/submissions";
 
 export function ContactForm() {
   const [state, formAction, pending] = useActionState(
-    submitContactEnquiry,
+    async (previous: ContactState, formData: FormData) => {
+      const result = await submitContactEnquiry(previous, formData);
+      if (result.status === "success") await archiveContactEnquiry(formData);
+      return result;
+    },
     initialContactState,
   );
   const formRef = useRef<HTMLFormElement>(null);

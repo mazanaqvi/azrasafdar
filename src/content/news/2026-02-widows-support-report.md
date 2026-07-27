@@ -3,8 +3,6 @@ title: "Widows support: 180 households now on monthly assistance"
 date: "2026-02-09"
 excerpt: "A short report on who the programme reaches, what it costs, and what we would do differently."
 category: "Welfare"
-image: "/images/news/flood-relief.jpg"
-imageAlt: "Volunteers preparing support packages for delivery"
 author: "Foundation Team"
 ---
 

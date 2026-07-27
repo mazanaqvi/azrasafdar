@@ -1,4 +1,3 @@
-import { GalleryPreview } from "@/components/home/gallery-preview";
 import { GetInvolved } from "@/components/home/get-involved";
 import { Hero } from "@/components/home/hero";
 import { HowWeWork } from "@/components/home/how-we-work";
@@ -14,7 +13,6 @@ export default function HomePage() {
       <ProjectsPreview />
       <HowWeWork />
       <NewsPreview />
-      <GalleryPreview />
       <GetInvolved />
     </>
   );

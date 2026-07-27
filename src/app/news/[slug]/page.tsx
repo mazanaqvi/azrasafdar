@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeftIcon } from "lucide-react";
@@ -29,7 +28,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       publishedTime: post.date,
       url: `${site.url}/news/${post.slug}`,
-      images: post.image ? [{ url: post.image }] : undefined,
     },
   };
 }
@@ -66,19 +64,6 @@ export default async function NewsPostPage({ params }: Props) {
           {post.excerpt}
         </p>
       </header>
-
-      {post.image && (
-        <div className="relative mt-10 aspect-16/9 overflow-hidden rounded-2xl border border-border">
-          <Image
-            src={post.image}
-            alt={post.imageAlt ?? ""}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="object-cover"
-          />
-        </div>
-      )}
 
       <div
         className="prose prose-neutral mt-12 max-w-none prose-headings:font-heading prose-headings:scroll-offset prose-a:text-primary prose-th:text-left"

@@ -1,0 +1,90 @@
+rules_version = '2';
+
+// Form submissions are written straight from the browser with the web SDK, so
+// these rules are the only thing guarding the database. The shape below
+// mirrors the Zod schemas in src/lib/contact.ts and src/lib/volunteer.ts —
+// change one and you must change the other.
+//
+// Both collections are write-only to the public: anyone may create a
+// well-formed submission, nobody may read, edit or delete one. Submissions are
+// read through the Firebase console, or by a signed-in admin if that is added
+// later.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // matches() tests the whole string, so these patterns need no anchors.
+    function isText(value, minLength, maxLength) {
+      return value is string
+        && value.size() >= minLength
+        && value.size() <= maxLength;
+    }
+
+    function isEmail(value) {
+      return isText(value, 3, 200) && value.matches('[^@\\s]+@[^@\\s]+[.][^@\\s]+');
+    }
+
+    function isPhone(value, minLength) {
+      return isText(value, minLength, 30)
+        && (value == '' || value.matches('[+0-9][0-9\\s()-]*'));
+    }
+
+    // Exact key set: no extra fields can be smuggled into a document.
+    function hasExactly(data, fields) {
+      return data.keys().hasOnly(fields) && data.keys().hasAll(fields);
+    }
+
+    // Forces the client to use serverTimestamp() rather than a chosen date.
+    function isServerTime(value) {
+      return value == request.time;
+    }
+
+    match /contactEnquiries/{enquiryId} {
+      allow create: if hasExactly(request.resource.data, [
+                         'name', 'email', 'phone', 'topic', 'message', 'submittedAt'
+                       ])
+                    && isText(request.resource.data.name, 2, 100)
+                    && isEmail(request.resource.data.email)
+                    && isPhone(request.resource.data.phone, 0)
+                    && request.resource.data.topic in [
+                         'General enquiry',
+                         'I want to donate',
+                         'I need assistance',
+                         'Partnership or corporate giving',
+                         'Media or press'
+                       ]
+                    && isText(request.resource.data.message, 10, 3000)
+                    && isServerTime(request.resource.data.submittedAt);
+
+      allow read, update, delete: if false;
+    }
+
+    match /volunteerApplications/{applicationId} {
+      allow create: if hasExactly(request.resource.data, [
+                         'name', 'email', 'phone', 'city', 'interest',
+                         'availability', 'message', 'submittedAt'
+                       ])
+                    && isText(request.resource.data.name, 2, 100)
+                    && isEmail(request.resource.data.email)
+                    && isPhone(request.resource.data.phone, 7)
+                    && isText(request.resource.data.city, 2, 80)
+                    && request.resource.data.interest in [
+                         'Students Education',
+                         'Free Education & Tutorship',
+                         'Ramzan Ration Pack',
+                         'Widows Support',
+                         'Health Support',
+                         'Fundraising',
+                         "Wherever I'm needed"
+                       ]
+                    && isText(request.resource.data.availability, 2, 200)
+                    && isText(request.resource.data.message, 0, 2000)
+                    && isServerTime(request.resource.data.submittedAt);
+
+      allow read, update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

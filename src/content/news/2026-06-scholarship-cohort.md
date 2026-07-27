@@ -3,8 +3,6 @@ title: "120 students join our 2026 scholarship cohort"
 date: "2026-06-18"
 excerpt: "This year's intake is our largest yet, with places prioritised for girls at risk of leaving school after grade five."
 category: "Education"
-image: "/images/news/scholarships.jpg"
-imageAlt: "Students receiving scholarship certificates at a ceremony"
 author: "Foundation Team"
 ---
 

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageHeader } from "@/components/page-header";
 import { site } from "@/lib/site";
 import { values } from "@/lib/projects";
@@ -18,8 +17,8 @@ export default function AboutPage() {
         description={`${site.name} was established in ${site.founded} to serve families that formal aid consistently misses.`}
       />
 
-      <section className="container-page grid gap-12 py-20 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-        <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
+      <section className="container-page py-20">
+        <div className="max-w-3xl space-y-5 text-lg leading-relaxed text-muted-foreground">
           <p>
             The foundation began with a single question asked in a neighbourhood
             in Faisalabad: what would actually help? The answer was not what we
@@ -38,16 +37,6 @@ export default function AboutPage() {
             permanent team and a volunteer roster of teachers, doctors and
             drivers who give their evenings and weekends.
           </p>
-        </div>
-
-        <div className="relative aspect-4/3 overflow-hidden rounded-2xl border border-border shadow-lg lg:aspect-auto lg:min-h-full">
-          <Image
-            src="/images/about.jpg"
-            alt="Members of the foundation team meeting with community elders"
-            fill
-            sizes="(max-width: 1024px) 100vw, 45vw"
-            className="object-cover"
-          />
         </div>
       </section>
 

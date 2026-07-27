@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRightIcon, CheckIcon, MessageCircleIcon } from "lucide-react";
@@ -26,7 +25,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     openGraph: {
       title: `${project.title} — ${site.name}`,
       description: project.summary,
-      images: [{ url: project.image }],
     },
   };
 }
@@ -41,7 +39,6 @@ export default async function ProjectPage({ params }: Params) {
     title,
     summary,
     body,
-    image,
     icon: Icon,
     stat,
     highlights,
@@ -65,8 +62,8 @@ export default async function ProjectPage({ params }: Params) {
           className="brand-arc absolute -right-40 -top-56 -z-10 size-[40rem] [--arc-r:18rem] opacity-60"
         />
 
-        <div className="container-page grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-16 lg:py-20">
-          <div>
+        <div className="container-page py-16 lg:py-20">
+          <div className="max-w-3xl">
             <nav aria-label="Breadcrumb">
               <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
                 <li>
@@ -116,17 +113,6 @@ export default async function ProjectPage({ params }: Params) {
               </span>
               <span className="text-sm text-muted-foreground">{stat.label}</span>
             </div>
-          </div>
-
-          <div className="relative aspect-4/3 overflow-hidden rounded-[1.75rem] shadow-lift">
-            <Image
-              src={image}
-              alt={`${title} in progress`}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
           </div>
         </div>
       </section>

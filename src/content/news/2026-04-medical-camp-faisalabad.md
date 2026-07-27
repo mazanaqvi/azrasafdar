@@ -3,8 +3,6 @@ title: "Free medical camp treats 840 patients in Faisalabad"
 date: "2026-04-27"
 excerpt: "Two days, eleven volunteer doctors, and a queue that started before sunrise. Here is what the camp found."
 category: "Healthcare"
-image: "/images/news/medical-camp.jpg"
-imageAlt: "A doctor examining a patient at an outdoor medical camp"
 author: "Foundation Team"
 ---
 
