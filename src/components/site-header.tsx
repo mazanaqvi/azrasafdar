@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { MailIcon, PhoneIcon } from "lucide-react";
 import {
   SiFacebook,
   SiInstagram,
@@ -23,26 +22,9 @@ const socials = [
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40">
-      {/* Utility bar: contact details up front, the way institutions expect. */}
+      {/* Utility bar: social links only. */}
       <div className="hidden bg-brand-deeper text-primary-foreground lg:block">
-        <div className="container-page flex h-10 items-center justify-between text-xs">
-          <div className="flex items-center gap-6">
-            <a
-              href={`tel:${site.phone.replace(/\s/g, "")}`}
-              className="flex items-center gap-2 text-primary-foreground/75 transition-colors hover:text-lime"
-            >
-              <PhoneIcon className="size-3.5" />
-              {site.phone}
-            </a>
-            <a
-              href={`mailto:${site.email}`}
-              className="flex items-center gap-2 text-primary-foreground/75 transition-colors hover:text-lime"
-            >
-              <MailIcon className="size-3.5" />
-              {site.email}
-            </a>
-          </div>
-
+        <div className="container-page flex h-10 items-center justify-end text-xs">
           <div className="flex items-center gap-1">
             {socials.map(({ href, label, Icon }) => (
               <a
