@@ -8,7 +8,7 @@ export const CONTACT_COLLECTION = "contactEnquiries";
 export const VOLUNTEER_COLLECTION = "volunteerApplications";
 
 /**
- * Archiving is best-effort. The email sent by the Server Action is the
+ * Archiving is best-effort. The email the visitor sends is the
  * delivery mechanism the foundation actually relies on, so a Firestore
  * failure is logged and swallowed rather than shown to the visitor, who has
  * already been told their message was sent.

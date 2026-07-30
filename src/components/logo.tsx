@@ -36,7 +36,7 @@ export function Logo({
           </span>
         </span>
       )}
-      <span className="sr-only">{site.name} — home</span>
+      <span className="sr-only">{site.name} home</span>
     </Link>
   );
 }

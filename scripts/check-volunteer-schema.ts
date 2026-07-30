@@ -34,7 +34,7 @@ const volunteer = {
   name: "Ayesha Khan",
   email: "ayesha@example.com",
   phone: "+92 307 6699514",
-  city: "Faisalabad",
+  city: "Karachi",
   interest: "Students Education",
   availability: "Weekends",
   message: "",

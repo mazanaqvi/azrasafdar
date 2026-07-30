@@ -1,16 +1,19 @@
 "use client";
 
-import { useActionState, useEffect, useId, useRef } from "react";
-import { CheckCircle2Icon, ChevronDownIcon, LoaderCircleIcon } from "lucide-react";
+import { useId, useState, type FormEvent } from "react";
+import { ChevronDownIcon, MailIcon } from "lucide-react";
 import { toast } from "sonner";
-import { submitVolunteerApplication } from "@/lib/actions/volunteer";
 import {
-  initialVolunteerState,
+  volunteerFieldErrors,
   volunteerInterests,
-  type VolunteerState,
+  volunteerSchema,
+  type VolunteerFieldErrors,
 } from "@/lib/volunteer";
+import { volunteerMailtoHref } from "@/lib/mailto";
 import { archiveVolunteerApplication } from "@/lib/firebase/submissions";
-import { Button } from "@/components/ui/button";
+import { site } from "@/lib/site";
+import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,35 +26,64 @@ import {
 } from "@/components/form-primitives";
 
 export function VolunteerForm() {
-  const [state, formAction, pending] = useActionState(
-    async (previous: VolunteerState, formData: FormData) => {
-      const result = await submitVolunteerApplication(previous, formData);
-      if (result.status === "success") await archiveVolunteerApplication(formData);
-      return result;
-    },
-    initialVolunteerState,
-  );
-  const formRef = useRef<HTMLFormElement>(null);
+  const [errors, setErrors] = useState<VolunteerFieldErrors>({});
+  const [draft, setDraft] = useState<string | null>(null);
   const baseId = useId();
 
-  useEffect(() => {
-    if (state.status === "success") {
-      formRef.current?.reset();
-    } else if (state.status === "error" && Object.keys(state.fieldErrors).length === 0) {
-      toast.error(state.message);
-    }
-  }, [state]);
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
 
-  if (state.status === "success") {
+    // Bots fill hidden fields; people never see this one.
+    if (formData.get("company")) return;
+
+    const parsed = volunteerSchema.safeParse({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      city: formData.get("city"),
+      interest: formData.get("interest"),
+      availability: formData.get("availability"),
+      message: formData.get("message"),
+    });
+
+    if (!parsed.success) {
+      setErrors(volunteerFieldErrors(parsed.error.issues));
+      toast.error("Please correct the highlighted fields and try again.");
+      return;
+    }
+
+    setErrors({});
+
+    // Keep a copy in Firestore where it is configured, without making the
+    // visitor wait on it.
+    void archiveVolunteerApplication(formData);
+
+    const href = volunteerMailtoHref(parsed.data);
+    setDraft(href);
+    window.location.href = href;
+  }
+
+  if (draft) {
     return (
-      <div className="rounded-2xl bg-card p-12 text-center shadow-soft ring-1 ring-primary/20">
+      <div className="rounded-2xl bg-card p-10 text-center shadow-soft ring-1 ring-primary/20 sm:p-12">
         <span className="mx-auto grid size-16 place-items-center rounded-full bg-secondary">
-          <CheckCircle2Icon className="size-8 text-primary" />
+          <MailIcon className="size-8 text-primary" />
         </span>
-        <h2 className="mt-6 text-2xl font-semibold">Application received</h2>
+        <h2 className="mt-6 text-2xl font-semibold">Your email is ready</h2>
         <p className="mx-auto mt-3 max-w-md leading-relaxed text-muted-foreground">
-          {state.message}
+          We have opened your email app with your application filled in. Send it
+          from there and it reaches us at {site.volunteerEmail}.
         </p>
+        <a
+          href={draft}
+          className={cn(
+            buttonVariants({ variant: "outline" }),
+            "mt-7 h-11 border-border-strong px-6 font-semibold",
+          )}
+        >
+          Open the email again
+        </a>
       </div>
     );
   }
@@ -61,15 +93,19 @@ export function VolunteerForm() {
 
   return (
     <form
-      ref={formRef}
-      action={formAction}
+      onSubmit={handleSubmit}
       className="space-y-6 rounded-2xl bg-card p-7 shadow-soft ring-1 ring-border sm:p-9"
       noValidate
     >
-      {/* Honeypot: hidden from users, irresistible to bots. */}
+      {/* Honeypot: hidden from people, irresistible to bots. */}
       <div aria-hidden className="hidden">
         <label htmlFor={fieldId("company")}>Company</label>
-        <input id={fieldId("company")} name="company" tabIndex={-1} autoComplete="off" />
+        <input
+          id={fieldId("company")}
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -84,10 +120,10 @@ export function VolunteerForm() {
             placeholder="Your name"
             required
             className={FIELD}
-            aria-invalid={Boolean(state.fieldErrors.name)}
-            aria-describedby={state.fieldErrors.name ? errorId("name") : undefined}
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? errorId("name") : undefined}
           />
-          <FieldError id={errorId("name")} message={state.fieldErrors.name} />
+          <FieldError id={errorId("name")} message={errors.name} />
         </div>
 
         <div className="space-y-2">
@@ -102,10 +138,10 @@ export function VolunteerForm() {
             placeholder="you@example.com"
             required
             className={FIELD}
-            aria-invalid={Boolean(state.fieldErrors.email)}
-            aria-describedby={state.fieldErrors.email ? errorId("email") : undefined}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? errorId("email") : undefined}
           />
-          <FieldError id={errorId("email")} message={state.fieldErrors.email} />
+          <FieldError id={errorId("email")} message={errors.email} />
         </div>
 
         <div className="space-y-2">
@@ -121,10 +157,10 @@ export function VolunteerForm() {
             placeholder="+92 300 0000000"
             required
             className={FIELD}
-            aria-invalid={Boolean(state.fieldErrors.phone)}
-            aria-describedby={state.fieldErrors.phone ? errorId("phone") : undefined}
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby={errors.phone ? errorId("phone") : undefined}
           />
-          <FieldError id={errorId("phone")} message={state.fieldErrors.phone} />
+          <FieldError id={errorId("phone")} message={errors.phone} />
         </div>
 
         <div className="space-y-2">
@@ -135,13 +171,13 @@ export function VolunteerForm() {
             id={fieldId("city")}
             name="city"
             autoComplete="address-level2"
-            placeholder="e.g. Faisalabad"
+            placeholder="e.g. Karachi"
             required
             className={FIELD}
-            aria-invalid={Boolean(state.fieldErrors.city)}
-            aria-describedby={state.fieldErrors.city ? errorId("city") : undefined}
+            aria-invalid={Boolean(errors.city)}
+            aria-describedby={errors.city ? errorId("city") : undefined}
           />
-          <FieldError id={errorId("city")} message={state.fieldErrors.city} />
+          <FieldError id={errorId("city")} message={errors.city} />
         </div>
       </div>
 
@@ -155,10 +191,8 @@ export function VolunteerForm() {
             name="interest"
             required
             defaultValue=""
-            aria-invalid={Boolean(state.fieldErrors.interest)}
-            aria-describedby={
-              state.fieldErrors.interest ? errorId("interest") : undefined
-            }
+            aria-invalid={Boolean(errors.interest)}
+            aria-describedby={errors.interest ? errorId("interest") : undefined}
             className={SELECT}
           >
             <option value="" disabled>
@@ -175,7 +209,7 @@ export function VolunteerForm() {
             className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
           />
         </div>
-        <FieldError id={errorId("interest")} message={state.fieldErrors.interest} />
+        <FieldError id={errorId("interest")} message={errors.interest} />
       </div>
 
       <div className="space-y-2">
@@ -188,14 +222,14 @@ export function VolunteerForm() {
           placeholder="e.g. weekends, or two evenings a week"
           required
           className={FIELD}
-          aria-invalid={Boolean(state.fieldErrors.availability)}
+          aria-invalid={Boolean(errors.availability)}
           aria-describedby={
-            state.fieldErrors.availability ? errorId("availability") : undefined
+            errors.availability ? errorId("availability") : undefined
           }
         />
         <FieldError
           id={errorId("availability")}
-          message={state.fieldErrors.availability}
+          message={errors.availability}
         />
       </div>
 
@@ -213,24 +247,17 @@ export function VolunteerForm() {
         />
       </div>
 
-      {state.status === "error" && state.message && (
-        <p role="alert" className="text-sm text-destructive">
-          {state.message}
-        </p>
-      )}
-
       <Button
         type="submit"
-        disabled={pending}
         className="h-12 w-full text-base font-semibold shadow-soft sm:w-auto sm:px-9"
       >
-        {pending && <LoaderCircleIcon className="size-4 animate-spin" />}
-        {pending ? "Sending…" : "Submit application"}
+        <MailIcon className="size-4" />
+        Compose email
       </Button>
 
       <p className="text-xs leading-relaxed text-muted-foreground">
-        We use your details only to contact you about volunteering. They are
-        never shared with third parties.
+        This opens your own email app with the details filled in, so nothing is
+        sent until you press send there.
       </p>
     </form>
   );

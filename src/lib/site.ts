@@ -10,15 +10,12 @@ export const site = {
   // titles and social previews.
   tagline: "Empowering students, enriching futures",
   description:
-    "Azra Safdar Foundation is an education-led non-profit based in Faisalabad, Pakistan. We keep students in school through free education and tutorship, and support widows and families with healthcare and Ramzan ration packs.",
+    "Azra Safdar Foundation is an education-led non-profit in Pakistan. We keep students in school through free education and tutorship, and support widows and families with healthcare and Ramzan ration packs.",
   url: "https://azrasafdar.org",
   locale: "en_PK",
   founded: 2017,
-  // TODO: temporary. Replace both with a mailbox on azrasafdar.org once it
-  // exists — these are shown publicly in the footer and on the contact page,
-  // and they are where form submissions are delivered.
-  email: "alihumza.dev@gmail.com",
-  volunteerEmail: "alihumza.dev@gmail.com",
+  email: "info@azrasafdar.org",
+  volunteerEmail: "info@azrasafdar.org",
   phone: "+92 307 6699514",
   // Digits only, including country code, for tel: and wa.me links.
   phoneDigits: "923076699514",
@@ -26,24 +23,18 @@ export const site = {
     name: "Syed Zesshan Safdar",
     role: "Foundation Lead",
   },
-  address: {
-    line1: "Faisalabad",
-    line2: "Punjab",
-    country: "Pakistan",
-  },
-  officeHours: "Monday to Saturday, 10am – 7pm PKT",
+  location: "Pakistan",
+  officeHours: "Monday to Saturday, 10am to 7pm PKT",
+  // Facebook is the only profile the foundation runs. Add others here, and to
+  // the list in site-footer.tsx, if that changes.
   socials: {
-    facebook: "https://facebook.com/", // TODO: confirm
-    instagram: "https://instagram.com/", // TODO: confirm
-    youtube: "https://youtube.com/", // TODO: confirm
-    whatsapp: "https://wa.me/923076699514",
+    facebook: "https://www.facebook.com/ngnfoundation/",
   },
 } as const;
 
 /**
  * The foundation is a memorial one. NGN is built from the initials of the three
- * people it was founded to remember, in order, and the order matters — it is
- * where the name comes from.
+ * people it was founded to remember, in the order they appear in the name.
  */
 export const memorial = {
   initialism: "NGN",
@@ -53,6 +44,12 @@ export const memorial = {
     { initial: "N", name: "Syed Naji Ullah" },
   ],
 } as const;
+
+/** "A, B and C", for running the three names inside a sentence. */
+export const rememberedNames = new Intl.ListFormat("en-GB", {
+  style: "long",
+  type: "conjunction",
+}).format(memorial.remembered.map(({ name }) => name));
 
 export const telHref = `tel:+${site.phoneDigits}`;
 export const mailHref = `mailto:${site.email}`;
@@ -78,6 +75,7 @@ export const bankDetails = {
 export const navigation = [
   { href: "/about", label: "About" },
   { href: "/projects", label: "Our Projects" },
+  { href: "/gallery", label: "Gallery" },
   { href: "/news", label: "News" },
   { href: "/contact", label: "Contact" },
 ] as const;

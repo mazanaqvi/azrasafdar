@@ -2,7 +2,7 @@ import { getApp, getApps, initializeApp, type FirebaseOptions } from "firebase/a
 import { getFirestore, type Firestore } from "firebase/firestore";
 
 /**
- * Web SDK config. These values are public by design — they identify the
+ * Web SDK config. These values are public by design, since they identify the
  * project, they do not authorise anything. Access is controlled entirely by
  * the rules in `firestore.rules`.
  */

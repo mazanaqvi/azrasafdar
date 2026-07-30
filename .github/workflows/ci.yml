@@ -41,7 +41,7 @@ jobs:
         if: matrix.node-version == '22.x'
         run: npm run check:form
 
-      # No secrets required: the build runs without RESEND_API_KEY, and a
+      # No secrets required: the forms need no server configuration, and a
       # missing Firebase config degrades to "no Firestore archive" rather than
       # failing.
       - name: Build

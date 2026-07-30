@@ -10,8 +10,8 @@ export function ProjectsPreview() {
     <section className="container-page section-y">
       <SectionHeading
         eyebrow="Our projects"
-        title="Keeping students in school, and learning"
-        description="Education is our core work. Everything else we do exists to remove the obstacles that pull a child out of the classroom."
+        title="Keeping students in school"
+        description="Education is our main work. Our other projects deal with the problems that take a child out of the classroom."
         action={
           <Link
             href="/projects"
@@ -31,21 +31,21 @@ export function ProjectsPreview() {
           <li key={slug}>
             <Link
               href={`/projects/${slug}`}
-              className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-card p-8 ring-1 ring-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              className="group card-surface relative flex h-full flex-col overflow-hidden p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               {/* Accent bar animates in on hover to signal interactivity. */}
               <span
                 aria-hidden
-                className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-linear-to-r from-primary to-lime transition-transform duration-300 group-hover:scale-x-100"
+                className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-linear-to-r from-primary to-lime transition-transform duration-300 group-hover:scale-x-100"
               />
 
               <div className="flex items-start justify-between gap-4">
-                <span className="grid size-13 place-items-center rounded-xl bg-secondary text-primary ring-1 ring-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                <span className="grid size-13 place-items-center rounded-2xl bg-secondary text-primary ring-1 ring-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icon className="size-6" />
                 </span>
                 <span
                   aria-hidden
-                  className="font-display text-4xl font-semibold text-primary/15 transition-colors group-hover:text-lime"
+                  className="font-display text-4xl font-semibold text-primary/15 tabular transition-colors group-hover:text-lime"
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
@@ -78,7 +78,7 @@ export function ProjectsPreview() {
           <div className="lg:w-64 lg:shrink-0">
             <p className="eyebrow">Beyond the classroom</p>
             <p className="mt-3 text-lg leading-snug text-foreground">
-              Families often need support before schooling is even possible.
+              Some families need support before school is even possible.
             </p>
           </div>
 
@@ -87,9 +87,9 @@ export function ProjectsPreview() {
               <li key={slug}>
                 <Link
                   href={`/projects/${slug}`}
-                  className="group flex h-full flex-col rounded-xl p-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                  className="group flex h-full flex-col rounded-xl bg-background/70 p-5 ring-1 ring-border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-soft hover:ring-primary/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 >
-                  <span className="grid size-11 place-items-center rounded-xl bg-background text-primary ring-1 ring-border transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  <span className="grid size-11 place-items-center rounded-xl bg-secondary text-primary ring-1 ring-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                     <Icon className="size-5" />
                   </span>
                   <h3 className="mt-4 font-semibold transition-colors group-hover:text-primary">

@@ -30,67 +30,57 @@ The site runs at http://localhost:3000.
 
 These need real values. Each is marked with a `TODO` comment in the source.
 
-1. **Foundation details** — `src/lib/site.ts` holds the name, contact email,
-   phone, address and social links. The bank transfer details shown on the
+1. **Foundation details**: `src/lib/site.ts` holds the name, contact email,
+   phone, location and social links. The bank transfer details shown on the
    donate page are in the same file.
-2. **Photography** — the site ships with no photography. Placeholder artwork
+2. **Photography**: the site ships with no photography. Placeholder artwork
    and the gallery page were removed, and every layout was reflowed to be
    text-led, so nothing looks unfinished. See "Adding photography back" below.
-3. **Project copy and figures** — `src/lib/projects.ts` contains the five
+3. **Project copy and figures**: `src/lib/projects.ts` contains the five
    project descriptions. Unverified achievement statistics have been removed
    from the site, so the only remaining figures are the indicative `costs`
    amounts on each project and the donate page. Replace those with real
    amounts, and add impact statistics only once they are audited.
-4. **Email addresses** — `site.email` and `site.volunteerEmail` in
-   `src/lib/site.ts` are temporarily a personal Gmail address. They are shown
-   publicly and are where form submissions are delivered, so replace them with
-   a mailbox on `azrasafdar.org` once one exists.
-5. **Form email delivery** — see below.
-
+4. **News posts**: the three posts in `src/content/news` are placeholders
+   written to show the layout. Replace them with real updates.
 ## Forms
 
-There are two: contact (`src/lib/actions/contact.ts`) and volunteer
-(`src/lib/actions/volunteer.ts`). Both post to a Server Action that validates
-with Zod and emails the submission via [Resend](https://resend.com). A hidden
-honeypot field catches most bot submissions.
+There are two: contact and volunteer. Neither posts to a server. Each validates
+in the browser with the Zod schema in `src/lib/contact.ts` or
+`src/lib/volunteer.ts`, then opens the visitor's own email app through a
+`mailto:` link with the subject and body already filled in. A hidden honeypot
+field catches most bot submissions.
 
-Copy `.env.example` to `.env.local` and fill in:
+This needs no configuration and no third-party email provider, and it cannot
+silently drop an enquiry, because the visitor sends the message themselves and
+keeps a copy in their sent folder. The trade-off is that they have to press send
+in their mail client, and a visitor with no mail client configured will need to
+use the address shown on the page instead.
 
-```
-RESEND_API_KEY=re_...
-RESEND_FROM_EMAIL="Azra Safdar Foundation <website@yourdomain.org>"
-```
-
-`RESEND_FROM_EMAIL` must be on a domain verified in your Resend account.
-
-Without an API key the forms log submissions to the server console in
-development and return an error in production, so they fail loudly rather than
-silently dropping an enquiry.
-
-Enquiries go to `site.email`, applications to `site.volunteerEmail`.
+Enquiries are addressed to `site.email`, applications to `site.volunteerEmail`.
+The `mailto:` builder is in `src/lib/mailto.ts`.
 
 ### Firestore archive
 
-Email is the delivery mechanism; Firestore is the durable record, so a bounced
-or misconfigured email doesn't lose a submission. After a Server Action
-reports success, the browser writes the same validated data to Firestore via
-the web SDK (`src/lib/firebase/submissions.ts`).
+The visitor's email is the delivery mechanism; Firestore is the durable record,
+so you still have the submission if they never press send. Once a form validates
+the browser writes the same validated data to Firestore via the web SDK
+(`src/lib/firebase/submissions.ts`).
 
 | Collection | Written from |
 | --- | --- |
 | `contactEnquiries` | Contact form |
 | `volunteerApplications` | Volunteer form |
 
-Archiving is best-effort: if Firestore is unreachable or unconfigured, the
-error is logged and the visitor still sees the success message they earned
-when the email went out.
+Archiving is best-effort: if Firestore is unreachable or unconfigured, the error
+is logged and the visitor's email still opens as normal.
 
 Read submissions in the [Firestore console](https://console.firebase.google.com/project/azrasafdar-org/firestore).
 
 ## Firebase
 
-Firebase is used for Firestore only — no hosting, no auth. It runs entirely
-within the free Spark plan; nothing here requires the Blaze plan.
+Firebase is used for Firestore only, with no hosting and no auth. It runs
+entirely within the free Spark plan; nothing here requires the Blaze plan.
 
 Because writes come straight from the browser, `firestore.rules` is the only
 thing guarding the database. Both collections are **write-only to the public**:
@@ -194,8 +184,6 @@ Set these in Vercel under Settings → Environment Variables, for Production,
 Preview and Development:
 
 ```
-RESEND_API_KEY
-RESEND_FROM_EMAIL
 NEXT_PUBLIC_FIREBASE_API_KEY
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
 NEXT_PUBLIC_FIREBASE_PROJECT_ID

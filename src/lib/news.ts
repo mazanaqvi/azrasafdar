@@ -43,7 +43,7 @@ async function readPost(fileName: string): Promise<NewsPost> {
   if (!parsed.success) {
     throw new Error(
       `Invalid frontmatter in src/content/news/${fileName}: ${parsed.error.issues
-        .map((issue) => `${issue.path.join(".") || "(root)"} — ${issue.message}`)
+        .map((issue) => `${issue.path.join(".") || "(root)"}: ${issue.message}`)
         .join("; ")}`,
     );
   }

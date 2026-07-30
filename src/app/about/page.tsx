@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
-import { memorial, site } from "@/lib/site";
+import { memorial, rememberedNames, site } from "@/lib/site";
 import { values } from "@/lib/projects";
 
 export const metadata: Metadata = {
@@ -13,64 +13,40 @@ export default function AboutPage() {
     <>
       <PageHeader
         eyebrow="About us"
-        title="A foundation built in three names"
-        description={`${site.name} was established in ${site.founded} as a memorial, to serve families that formal aid consistently misses.`}
+        title="About the foundation"
+        description={`${site.name} was set up in ${site.founded} to help families in Pakistan keep their children in school.`}
       />
 
       <section className="container-page py-20">
         <div className="max-w-3xl space-y-5 text-lg leading-relaxed text-muted-foreground">
           <p>
-            {site.name} was founded in {site.founded} as a memorial, and the
-            name it is also known by says why. {memorial.initialism} is
-            assembled from the initials of three people: Syed Ali Naqi gives the
-            first N, Syeda Ghazia Zameer the G, and Syed Naji Ullah the second
-            N. The foundation exists in their memory.
+            We are an education-led non-profit working in Pakistan. Our main
+            work is paying school costs for students whose families cannot
+            afford them, and running free tuition so that being enrolled turns
+            into actually learning.
           </p>
           <p>
-            What started as a private act of remembrance became something the
-            families around us could use. Every school place paid for, every
-            tuition class taught and every household supported since is carried
-            out in those three names — remembrance in a form that outlasts a
-            gesture.
+            Alongside that we support widowed mothers, deliver ration packs
+            before Ramzan and run free medical camps. These are the pressures
+            that most often take a child out of class, so dealing with them is
+            part of the same job.
           </p>
           <p>
-            The foundation began with a single question asked in a neighbourhood
-            in Faisalabad: what would actually help? The answer was not what we
-            had assumed. Families did not want food parcels as much as they
-            wanted their children to stay in school, and they wanted a doctor
-            who would return next month rather than one who came once.
+            We started by asking families what would help rather than deciding
+            for them, and that is still how projects begin. Fees are paid
+            straight to the school, every request is checked in person, and we
+            would rather run a few projects properly than many of them badly.
           </p>
           <p>
-            That principle still governs how we work. Every project starts with
-            conversations in the community and ends with a public account of what
-            was spent and what changed. We would rather run five projects
-            properly than fifteen for the sake of a brochure.
+            The foundation is run by a small permanent team with a roster of
+            volunteer teachers, doctors and drivers who give their evenings and
+            weekends.
           </p>
           <p>
-            Today the foundation works out of Faisalabad through a small
-            permanent team and a volunteer roster of teachers, doctors and
-            drivers who give their evenings and weekends.
+            The foundation is also known as {memorial.initialism}. It was set up
+            as a memorial, and the three initials stand for {rememberedNames}.
+            The work is carried out in their memory.
           </p>
-        </div>
-
-        <div className="mt-14 max-w-3xl rounded-2xl bg-secondary/50 p-8 ring-1 ring-border sm:p-10">
-          <h2 className="eyebrow text-primary">In memory of</h2>
-          <ul className="mt-7 grid gap-7 sm:grid-cols-3">
-            {memorial.remembered.map(({ initial, name }) => (
-              <li key={name}>
-                {/* Decorative: the name below already reads it out. */}
-                <span
-                  aria-hidden
-                  className="font-display text-4xl font-semibold leading-none text-primary/25"
-                >
-                  {initial}
-                </span>
-                <p className="mt-3 font-heading text-lg font-semibold text-foreground">
-                  {name}
-                </p>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 

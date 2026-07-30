@@ -1,3 +1,5 @@
+// Kept free of path aliases: scripts/check-volunteer-schema.ts runs this file
+// directly under Node, which does not resolve "@/".
 import { z } from "zod";
 
 /** Mirrors the projects in `lib/projects.ts`, plus general options. */
@@ -32,14 +34,20 @@ export const volunteerSchema = z.object({
 
 export type VolunteerApplication = z.infer<typeof volunteerSchema>;
 
-export type VolunteerState = {
-  status: "idle" | "success" | "error";
-  message: string;
-  fieldErrors: Partial<Record<keyof VolunteerApplication, string>>;
-};
+export type VolunteerFieldErrors = Partial<
+  Record<keyof VolunteerApplication, string>
+>;
 
-export const initialVolunteerState: VolunteerState = {
-  status: "idle",
-  message: "",
-  fieldErrors: {},
-};
+/** First message per field, so each input shows one problem at a time. */
+export function volunteerFieldErrors(
+  issues: readonly { path: readonly PropertyKey[]; message: string }[],
+): VolunteerFieldErrors {
+  const fieldErrors: VolunteerFieldErrors = {};
+
+  for (const issue of issues) {
+    const key = issue.path[0] as keyof VolunteerApplication;
+    fieldErrors[key] ??= issue.message;
+  }
+
+  return fieldErrors;
+}

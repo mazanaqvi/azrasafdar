@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Contact ${site.name} in Faisalabad. Speak to ${site.contactPerson.name} on ${site.phone}, message us on WhatsApp, or send an enquiry through the form.`,
+  description: `Contact ${site.name}. Speak to ${site.contactPerson.name} on ${site.phone}, message us on WhatsApp, or send an enquiry through the form.`,
 };
 
 const faqs = [
@@ -41,7 +41,7 @@ const faqs = [
       "Contact us with the student's name, school, current class and the family's situation. Intake for the academic year usually opens before the new session begins.",
   },
   {
-    question: "Can I volunteer if I'm not in Faisalabad?",
+    question: "Can I volunteer from another city?",
     answer:
       "Yes. Field work needs people on the ground, but online tutoring, fundraising, design, translation and administrative help can all be done remotely.",
   },
@@ -77,8 +77,7 @@ const channels = [
   {
     Icon: MapPinIcon,
     label: "Based in",
-    value: `${site.address.line1}, ${site.address.line2}`,
-    note: site.address.country,
+    value: site.location,
   },
   {
     Icon: ClockIcon,
@@ -93,7 +92,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title="Get in touch"
-        description="Questions about our work, a partnership proposal, or a family who needs help — we read everything that comes in."
+        description="Questions about our work, a partnership proposal, or a family who needs help. We read everything that comes in."
       />
 
       <div className="container-page grid gap-12 py-20 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
@@ -101,19 +100,19 @@ export default function ContactPage() {
           <h2 className="text-2xl font-semibold">How to reach us</h2>
 
           {/* Named contact first: people trust a person more than an inbox. */}
-          <div className="mt-8 rounded-2xl bg-brand-deeper p-7 text-primary-foreground">
-            <p className="eyebrow text-lime">Speak to</p>
+          <div className="mt-8 rounded-2xl bg-secondary/60 p-7 ring-1 ring-primary/15">
+            <p className="eyebrow">Speak to</p>
             <p className="mt-3 font-display text-2xl font-semibold">
               {site.contactPerson.name}
             </p>
-            <p className="mt-1 text-sm text-primary-foreground/65">
-              {site.contactPerson.role} · {site.address.line1}
+            <p className="mt-1 text-sm text-muted-foreground">
+              {site.contactPerson.role} · {site.location}
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <a
                 href={telHref}
-                className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg bg-lime px-4 text-sm font-semibold text-lime-foreground transition-colors hover:bg-lime/85"
+                className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
               >
                 <PhoneIcon className="size-4" />
                 {site.phone}
@@ -122,7 +121,7 @@ export default function ContactPage() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/10 px-4 text-sm font-semibold transition-colors hover:bg-white/20"
+                className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-border-strong bg-background px-4 text-sm font-semibold transition-colors hover:bg-muted"
               >
                 <MessageCircleIcon className="size-4" />
                 WhatsApp
@@ -185,7 +184,8 @@ export default function ContactPage() {
         <div>
           <h2 className="text-2xl font-semibold">Send us a message</h2>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            We reply to every enquiry, usually within two working days.
+            Fill this in and we will open your email app with the details ready
+            to send. We reply to every enquiry, usually within two working days.
           </p>
           <div className="mt-8">
             <ContactForm />

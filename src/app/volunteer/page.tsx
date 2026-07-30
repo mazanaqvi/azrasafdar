@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Volunteer with us",
   description:
-    "Doctors, teachers, drivers and organisers — Azra Safdar Foundation runs on volunteers. Tell us how you can help.",
+    "Doctors, teachers, drivers and organisers keep Azra Safdar Foundation running. Tell us how you can help.",
 };
 
 const expectations = [
@@ -18,8 +18,8 @@ const expectations = [
   },
   {
     Icon: MapPinIcon,
-    title: "Based in Faisalabad",
-    body: "Field work happens in and around Faisalabad. Online tutoring, fundraising and admin help are welcome from anywhere.",
+    title: "On the ground or online",
+    body: "Field work happens in Pakistan. Online tutoring, fundraising and admin help are welcome from anywhere.",
   },
   {
     Icon: HeartHandshakeIcon,
@@ -33,11 +33,11 @@ export default function VolunteerPage() {
     <>
       <PageHeader
         eyebrow="Volunteer"
-        title="Give what you can — time counts as much as money"
+        title="Give whatever time you can"
         description="We need doctors and teachers, but we also need drivers, packers, photographers and people who are good at organising other people."
       />
 
-      <div className="container-page grid gap-12 py-16 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
+      <div className="container-page grid gap-12 py-20 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
         <div className="space-y-8">
           {expectations.map(({ Icon, title, body }) => (
             <div key={title} className="flex gap-4">
@@ -55,7 +55,7 @@ export default function VolunteerPage() {
 
           <div className="rounded-xl border border-border bg-secondary/40 p-5">
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Prefer email? Write to us at{" "}
+              Rather write it yourself? Email us at{" "}
               <a
                 href={`mailto:${site.volunteerEmail}`}
                 className="font-medium text-primary hover:underline"

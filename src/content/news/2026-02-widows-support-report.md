@@ -1,25 +1,19 @@
 ---
-title: "Widows support: 180 households now on monthly assistance"
-date: "2026-02-09"
-excerpt: "A short report on who the programme reaches, what it costs, and what we would do differently."
+title: "How the widows support project is going"
+date: "2026-02-14"
+excerpt: "A short account of what the monthly stipend and skills training have changed, and what we would do differently."
 category: "Welfare"
 author: "Foundation Team"
 ---
 
-Our widows support project reached 180 households in Faisalabad this quarter, up from 124 at the same point last year. Every household on the list has at least one school-age child.
+The widows support project pairs a monthly stipend with skills training, so that a household can get through the period after a death without the children being taken out of school.
 
-## Who it reaches
+## What it looks like in practice
 
-Households are added after a home visit, with priority given to families where a child had already stopped attending school or was working part-time. Fifty-one of the households joined through referrals from teachers at schools where we already fund students — teachers know which families are struggling in a way a visiting team never could in a single day.
+Households join the list after a home visit, with priority for families where a child had already stopped attending school or started working. Many are referred by teachers at schools where we already fund students, because teachers know which families are struggling.
 
-## What it cost
-
-Monthly assistance across the quarter came to PKR 5.4 million, funded entirely by individual donors. A further PKR 900,000 went to skills training and equipment grants: forty-one sewing machines and starter materials.
+Alongside the stipend, mothers can train in stitching, embroidery and small-scale food production. Where someone is ready to start earning, we help with the equipment and the first lot of materials.
 
 ## What we would do differently
 
-Two things. We were slow to move households from assistance onto independent income — the skills training started three months after the stipend in most cases, and it should run alongside from the start. And we underestimated how much demand there would be for basic literacy classes for the mothers themselves, which we had not planned for at all.
-
-Of the 180 households, 168 have all school-age children currently enrolled. Following up on the remaining twelve is this quarter's priority.
-
-If you would like to support this work, the [donate page](/donate) has our bank details, or you can [volunteer](/volunteer) to teach a skill.
+Two things. We were slow to move households from the stipend towards an income of their own, because the training usually started months after the payments began, and the two should run together from the start. We also underestimated how many mothers wanted basic literacy classes for themselves, which we had not planned for.

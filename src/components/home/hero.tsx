@@ -1,70 +1,53 @@
 import Link from "next/link";
-import { ArrowRightIcon, ShieldCheckIcon } from "lucide-react";
+import {
+  ArrowRightIcon,
+  CalendarDaysIcon,
+  ReceiptTextIcon,
+  ShieldCheckIcon,
+} from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const credibility = [
-  `Established ${site.founded}`,
-  "Registered non-profit",
-  "Publicly reported accounts",
+  { Icon: CalendarDaysIcon, label: `Established ${site.founded}` },
+  { Icon: ShieldCheckIcon, label: "Registered non-profit" },
+  { Icon: ReceiptTextIcon, label: "Publicly reported accounts" },
 ];
 
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden border-b border-border">
-      {/* Layered brand wash: a soft green field with the logo's arc echoed
-          behind the type. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-linear-to-br from-brand-tint via-background to-secondary/70"
-      />
-      <div
-        aria-hidden
-        className="brand-arc absolute -right-40 -top-32 -z-10 size-[46rem] [--arc-r:21rem] [--arc-x:50%] [--arc-y:50%] opacity-70"
-      />
-      <div
-        aria-hidden
-        className="absolute -bottom-56 -left-40 -z-10 size-[38rem] rounded-full bg-lime/8 blur-3xl"
-      />
+      <div aria-hidden className="surface-wash absolute inset-0 -z-20" />
+      <div aria-hidden className="surface-grid absolute inset-0 -z-10" />
 
       <div className="container-page flex flex-col items-center py-20 text-center lg:py-28">
-        <p className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-background/80 py-1.5 pl-1.5 pr-4 text-xs font-semibold text-primary shadow-xs backdrop-blur">
+        <p className="inline-flex items-center gap-2.5 rounded-full bg-background/80 py-1.5 pl-1.5 pr-4 text-xs font-semibold text-primary shadow-soft ring-1 ring-primary/15 backdrop-blur">
           <span className="rounded-full bg-primary px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.14em] text-primary-foreground">
             Since {site.founded}
           </span>
           Serving communities across Pakistan
         </p>
 
-        <h1 className="mt-8 max-w-4xl text-[clamp(2.5rem,5.6vw,4.25rem)] font-semibold leading-[1.1] tracking-[-0.025em]">
+        <h1 className="mt-8 max-w-4xl text-[clamp(2.5rem,5.6vw,4.25rem)] font-semibold leading-[1.08] tracking-[-0.03em]">
           Every child deserves a{" "}
           <span className="relative whitespace-nowrap text-primary">
             future
-            <svg
+            <span
               aria-hidden
-              viewBox="0 0 200 10"
-              preserveAspectRatio="none"
-              className="absolute -bottom-0.5 left-0 h-[0.3em] w-full text-lime/80"
-            >
-              <path
-                d="M3 7C40 3 90 2.5 197 5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-            </svg>
+              className="absolute -bottom-1 left-0 h-[0.16em] w-full rounded-full bg-lime/70"
+            />
           </span>{" "}
           worth working for
         </h1>
 
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-          Azra Safdar Foundation keeps students in school through scholarships,
-          tutoring and mentorship — and supports their families with healthcare
-          and relief when crisis would otherwise end their schooling.
+          Azra Safdar Foundation keeps students in school with scholarships and
+          free tuition, and supports their families with healthcare and relief
+          so that a crisis at home does not end a child&apos;s education.
         </p>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-10 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
           <Link
             href="/donate"
             className={cn(
@@ -78,7 +61,7 @@ export function Hero() {
             href="/projects"
             className={cn(
               buttonVariants({ variant: "outline" }),
-              "group h-13 border-primary/25 bg-background/70 px-8 text-base font-semibold backdrop-blur hover:bg-background",
+              "group h-13 border-border-strong bg-background/70 px-8 text-base font-semibold backdrop-blur hover:bg-background",
             )}
           >
             See our projects
@@ -86,14 +69,14 @@ export function Hero() {
           </Link>
         </div>
 
-        <ul className="mt-14 flex w-full max-w-2xl flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-border/80 pt-8">
-          {credibility.map((item) => (
+        <ul className="mt-16 grid w-full max-w-3xl divide-y divide-border overflow-hidden rounded-2xl border border-border bg-background/60 shadow-soft backdrop-blur sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          {credibility.map(({ Icon, label }) => (
             <li
-              key={item}
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground"
+              key={label}
+              className="flex items-center justify-center gap-2.5 px-5 py-4 text-sm font-medium text-muted-foreground"
             >
-              <ShieldCheckIcon className="size-4 text-primary" />
-              {item}
+              <Icon className="size-4 shrink-0 text-primary" />
+              {label}
             </li>
           ))}
         </ul>

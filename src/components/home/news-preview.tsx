@@ -18,8 +18,8 @@ export async function NewsPreview() {
       <div className="container-page section-y">
         <SectionHeading
           eyebrow="Latest updates"
-          title="News from the field"
-          description="Reports on what we did, what it cost, and what we would do differently."
+          title="Recent news"
+          description="Short updates on our projects and the people they support."
           action={
             <Link
               href="/news"

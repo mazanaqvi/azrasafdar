@@ -29,7 +29,7 @@ const sourceSerif = Source_Serif_4({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
+    default: `${site.name} | ${site.tagline}`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     locale: site.locale,
     url: site.url,
     siteName: site.name,
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.name} | ${site.tagline}`,
     description: site.description,
   },
   twitter: {
@@ -68,7 +68,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={cn(inter.variable, interHeading.variable, sourceSerif.variable)}
     >
-      <body className="flex min-h-dvh flex-col font-sans">
+      {/* Extensions such as Grammarly add attributes to <body> before React
+          hydrates, which React otherwise reports as a mismatch. This suppresses
+          that on this element only; it does not affect anything we render. */}
+      <body className="flex min-h-dvh flex-col font-sans" suppressHydrationWarning>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"

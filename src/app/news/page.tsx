@@ -6,7 +6,7 @@ import { getNewsSummaries } from "@/lib/news";
 export const metadata: Metadata = {
   title: "News and updates",
   description:
-    "Field reports from Azra Safdar Foundation — what we did, what it cost, and what we learned.",
+    "Updates from Azra Safdar Foundation on our projects and the families we work with.",
 };
 
 export default async function NewsPage() {
@@ -16,11 +16,11 @@ export default async function NewsPage() {
     <>
       <PageHeader
         eyebrow="News"
-        title="Updates from the field"
-        description="Reports on what we did, what it cost, and what we would do differently next time."
+        title="News and updates"
+        description="Short updates on our projects and the people they support."
       />
 
-      <div className="container-page py-16">
+      <div className="container-page py-20">
         {posts.length === 0 ? (
           <p className="text-muted-foreground">
             There are no posts yet. Check back soon.

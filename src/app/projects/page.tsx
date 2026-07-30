@@ -11,22 +11,22 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Our Projects",
   description:
-    "Students education, free education and tutorship, Ramzan ration packs, widows support and health support — the five projects run by Azra Safdar Foundation in Faisalabad.",
+    "The five projects run by Azra Safdar Foundation in Pakistan: students education, free education and tutorship, Ramzan ration packs, widows support and health support.",
 };
 
 function ProjectCard({ project }: { project: Project }) {
   const { slug, title, summary, icon: Icon, focus, seasonal } = project;
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-card p-8 ring-1 ring-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25">
+    <article className="group card-surface relative flex h-full flex-col overflow-hidden p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25">
       {/* Accent bar animates in on hover to signal interactivity. */}
       <span
         aria-hidden
-        className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-linear-to-r from-primary to-lime transition-transform duration-300 group-hover:scale-x-100"
+        className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-linear-to-r from-primary to-lime transition-transform duration-300 group-hover:scale-x-100"
       />
 
       <div className="flex items-start justify-between gap-4">
-        <span className="grid size-13 place-items-center rounded-xl bg-secondary text-primary ring-1 ring-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+        <span className="grid size-13 place-items-center rounded-2xl bg-secondary text-primary ring-1 ring-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
           <Icon className="size-6" />
         </span>
         {seasonal && (
@@ -65,15 +65,15 @@ export default function ProjectsPage() {
     <>
       <PageHeader
         eyebrow="Our Projects"
-        title="Five projects, one purpose"
-        description={`Education is the core of what ${site.name} does. The rest of our work exists to remove the things that pull a student out of the classroom.`}
+        title="What we do"
+        description={`Education is the core of what ${site.name} does. Our other projects deal with the things that take a student out of the classroom.`}
       />
 
       <div className="container-page pt-20 pb-24">
         <SectionHeading
           eyebrow="Core work"
           title="Education projects"
-          description="Getting students into school, and making sure they learn once they are there."
+          description="Getting students into school, and helping them keep up once they are there."
         />
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
@@ -88,7 +88,7 @@ export default function ProjectsPage() {
           <SectionHeading
             eyebrow="Supporting work"
             title="Welfare projects"
-            description="Hunger, bereavement and untreated illness all end a child's schooling. These projects address each of them."
+            description="Hunger, losing a parent and untreated illness all end a child's schooling. These projects deal with each of them."
           />
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -100,7 +100,7 @@ export default function ProjectsPage() {
       </div>
 
       <div className="container-page py-24">
-        <div className="rounded-2xl bg-card p-10 text-center shadow-soft ring-1 ring-border sm:p-14">
+        <div className="card-surface p-10 text-center sm:p-14">
           <h2 className="text-2xl font-semibold sm:text-3xl">
             Want to help one of these projects run?
           </h2>

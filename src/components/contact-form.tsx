@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState, useEffect, useId, useRef } from "react";
-import { CheckCircle2Icon, ChevronDownIcon, LoaderCircleIcon } from "lucide-react";
+import { useId, useState, type FormEvent } from "react";
+import { ChevronDownIcon, MailIcon } from "lucide-react";
 import { toast } from "sonner";
 import {
   FIELD,
@@ -10,47 +10,78 @@ import {
   SELECT,
   TEXTAREA,
 } from "@/components/form-primitives";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { submitContactEnquiry } from "@/lib/actions/contact";
-import { enquiryTopics, initialContactState, type ContactState } from "@/lib/contact";
+import {
+  contactFieldErrors,
+  contactSchema,
+  enquiryTopics,
+  type ContactFieldErrors,
+} from "@/lib/contact";
+import { contactMailtoHref } from "@/lib/mailto";
 import { archiveContactEnquiry } from "@/lib/firebase/submissions";
+import { site } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 export function ContactForm() {
-  const [state, formAction, pending] = useActionState(
-    async (previous: ContactState, formData: FormData) => {
-      const result = await submitContactEnquiry(previous, formData);
-      if (result.status === "success") await archiveContactEnquiry(formData);
-      return result;
-    },
-    initialContactState,
-  );
-  const formRef = useRef<HTMLFormElement>(null);
+  const [errors, setErrors] = useState<ContactFieldErrors>({});
+  const [draft, setDraft] = useState<string | null>(null);
   const baseId = useId();
 
-  useEffect(() => {
-    if (state.status === "success") {
-      formRef.current?.reset();
-    } else if (
-      state.status === "error" &&
-      Object.keys(state.fieldErrors).length === 0
-    ) {
-      toast.error(state.message);
-    }
-  }, [state]);
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
 
-  if (state.status === "success") {
+    // Bots fill hidden fields; people never see this one.
+    if (formData.get("company")) return;
+
+    const parsed = contactSchema.safeParse({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      topic: formData.get("topic"),
+      message: formData.get("message"),
+    });
+
+    if (!parsed.success) {
+      setErrors(contactFieldErrors(parsed.error.issues));
+      toast.error("Please correct the highlighted fields and try again.");
+      return;
+    }
+
+    setErrors({});
+
+    // Keep a copy in Firestore where it is configured, without making the
+    // visitor wait on it.
+    void archiveContactEnquiry(formData);
+
+    const href = contactMailtoHref(parsed.data);
+    setDraft(href);
+    window.location.href = href;
+  }
+
+  if (draft) {
     return (
-      <div className="rounded-2xl bg-card p-12 text-center shadow-soft ring-1 ring-primary/20">
+      <div className="rounded-2xl bg-card p-10 text-center shadow-soft ring-1 ring-primary/20 sm:p-12">
         <span className="mx-auto grid size-16 place-items-center rounded-full bg-secondary">
-          <CheckCircle2Icon className="size-8 text-primary" />
+          <MailIcon className="size-8 text-primary" />
         </span>
-        <h2 className="mt-6 text-2xl font-semibold">Message sent</h2>
+        <h2 className="mt-6 text-2xl font-semibold">Your email is ready</h2>
         <p className="mx-auto mt-3 max-w-md leading-relaxed text-muted-foreground">
-          {state.message}
+          We have opened your email app with the message filled in. Send it from
+          there and it reaches us at {site.email}.
         </p>
+        <a
+          href={draft}
+          className={cn(
+            buttonVariants({ variant: "outline" }),
+            "mt-7 h-11 border-border-strong px-6 font-semibold",
+          )}
+        >
+          Open the email again
+        </a>
       </div>
     );
   }
@@ -60,8 +91,7 @@ export function ContactForm() {
 
   return (
     <form
-      ref={formRef}
-      action={formAction}
+      onSubmit={handleSubmit}
       className="space-y-6 rounded-2xl bg-card p-7 shadow-soft ring-1 ring-border sm:p-9"
       noValidate
     >
@@ -88,10 +118,10 @@ export function ContactForm() {
             placeholder="Your name"
             required
             className={FIELD}
-            aria-invalid={Boolean(state.fieldErrors.name)}
-            aria-describedby={state.fieldErrors.name ? errorId("name") : undefined}
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? errorId("name") : undefined}
           />
-          <FieldError id={errorId("name")} message={state.fieldErrors.name} />
+          <FieldError id={errorId("name")} message={errors.name} />
         </div>
 
         <div className="space-y-2">
@@ -106,10 +136,10 @@ export function ContactForm() {
             placeholder="you@example.com"
             required
             className={FIELD}
-            aria-invalid={Boolean(state.fieldErrors.email)}
-            aria-describedby={state.fieldErrors.email ? errorId("email") : undefined}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? errorId("email") : undefined}
           />
-          <FieldError id={errorId("email")} message={state.fieldErrors.email} />
+          <FieldError id={errorId("email")} message={errors.email} />
         </div>
       </div>
 
@@ -127,10 +157,10 @@ export function ContactForm() {
             autoComplete="tel"
             placeholder="+92 300 0000000"
             className={FIELD}
-            aria-invalid={Boolean(state.fieldErrors.phone)}
-            aria-describedby={state.fieldErrors.phone ? errorId("phone") : undefined}
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby={errors.phone ? errorId("phone") : undefined}
           />
-          <FieldError id={errorId("phone")} message={state.fieldErrors.phone} />
+          <FieldError id={errorId("phone")} message={errors.phone} />
         </div>
 
         <div className="space-y-2">
@@ -144,10 +174,8 @@ export function ContactForm() {
               required
               defaultValue=""
               className={SELECT}
-              aria-invalid={Boolean(state.fieldErrors.topic)}
-              aria-describedby={
-                state.fieldErrors.topic ? errorId("topic") : undefined
-              }
+              aria-invalid={Boolean(errors.topic)}
+              aria-describedby={errors.topic ? errorId("topic") : undefined}
             >
               <option value="" disabled>
                 Select a topic
@@ -163,7 +191,7 @@ export function ContactForm() {
               className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
             />
           </div>
-          <FieldError id={errorId("topic")} message={state.fieldErrors.topic} />
+          <FieldError id={errorId("topic")} message={errors.topic} />
         </div>
       </div>
 
@@ -178,26 +206,23 @@ export function ContactForm() {
           required
           placeholder="Tell us how we can help."
           className={TEXTAREA}
-          aria-invalid={Boolean(state.fieldErrors.message)}
-          aria-describedby={
-            state.fieldErrors.message ? errorId("message") : undefined
-          }
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? errorId("message") : undefined}
         />
-        <FieldError id={errorId("message")} message={state.fieldErrors.message} />
+        <FieldError id={errorId("message")} message={errors.message} />
       </div>
 
       <Button
         type="submit"
-        disabled={pending}
         className="h-12 w-full text-base font-semibold shadow-soft sm:w-auto sm:px-9"
       >
-        {pending && <LoaderCircleIcon className="size-4 animate-spin" />}
-        {pending ? "Sending…" : "Send message"}
+        <MailIcon className="size-4" />
+        Compose email
       </Button>
 
       <p className="text-xs leading-relaxed text-muted-foreground">
-        We use your details only to reply to this enquiry. They are never shared
-        with third parties.
+        This opens your own email app with the details filled in, so nothing is
+        sent until you press send there.
       </p>
     </form>
   );

@@ -1,28 +1,24 @@
 ---
-title: "120 students join our 2026 scholarship cohort"
+title: "New scholarship places for the school year"
 date: "2026-06-18"
-excerpt: "This year's intake is our largest yet, with places prioritised for girls at risk of leaving school after grade five."
+excerpt: "Our new intake of scholarship students has started the school year, with places kept for girls at risk of leaving early."
 category: "Education"
 author: "Foundation Team"
 ---
 
-One hundred and twenty students started the 2026 academic year with Azra Safdar Foundation support this month, the largest intake since the project began.
+Our new intake of scholarship students started the school year this month. Places were offered after home visits to the families who applied, with priority for households where a child had already started working, and for girls at the stage where leaving school is most likely.
 
-Places were allocated after home visits to 340 applicant families across Faisalabad. Priority went to households where a child was already working part-time, and to girls in grades five and six, the point at which drop-out rates rise most sharply.
+## What a place covers
 
-## What the place covers
+Each place runs for a full academic year and covers:
 
-Each place covers a full academic year:
+- Admission and tuition fees, paid directly to the school
+- Uniforms, shoes and a school bag
+- Textbooks and stationery
+- A monthly stipend for the households that need it most
 
-- Admission and tuition fees paid directly to the school
-- Two uniforms, shoes and a school bag
-- All required textbooks and stationery
-- A monthly stipend of PKR 3,000 for the highest-need households
+The stipend matters more than it looks. In families where an older child could be earning instead, it makes up for the income the household gives up by keeping that child in class.
 
-The stipend matters more than it might appear. For families where a twelve-year-old could otherwise earn at a workshop or in the fields, it offsets the income the household gives up by keeping that child in class.
+## Staying in touch with families
 
-## Following the cohort
-
-We check in with every supported family twice a term. Attendance below eighty percent triggers a home visit rather than a withdrawal of support, because the reason is almost always something we can help with: an illness in the family, a move, or a fee the school added mid-year.
-
-Results from the 2025 cohort will be published alongside the audited annual report later this year.
+We check in with every family we support during the term. If a student's attendance drops we visit the home to find out why, rather than withdrawing the place, because the reason is usually something we can help with.

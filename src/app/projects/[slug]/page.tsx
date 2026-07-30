@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: project.title,
     description: project.summary,
     openGraph: {
-      title: `${project.title} — ${site.name}`,
+      title: `${project.title} | ${site.name}`,
       description: project.summary,
     },
   };
@@ -53,14 +53,8 @@ export default async function ProjectPage({ params }: Params) {
   return (
     <>
       <section className="relative isolate overflow-hidden border-b border-border">
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-linear-to-br from-brand-tint via-background to-secondary/60"
-        />
-        <div
-          aria-hidden
-          className="brand-arc absolute -right-40 -top-56 -z-10 size-[40rem] [--arc-r:18rem] opacity-60"
-        />
+        <div aria-hidden className="surface-wash absolute inset-0 -z-20" />
+        <div aria-hidden className="surface-grid absolute inset-0 -z-10" />
 
         <div className="container-page py-16 lg:py-20">
           <div className="max-w-3xl">
@@ -137,15 +131,15 @@ export default async function ProjectPage({ params }: Params) {
 
           <h2 className="mt-14 text-2xl font-semibold">What your donation covers</h2>
           <p className="mt-3 text-muted-foreground">
-            Indicative costs based on what this project actually spends.
+            Indicative costs, based on what this project spends.
           </p>
-          <ul className="mt-6 divide-y divide-border overflow-hidden rounded-2xl bg-card ring-1 ring-border">
+          <ul className="card-surface mt-6 divide-y divide-border overflow-hidden">
             {costs.map(({ amount, covers }) => (
               <li
                 key={amount}
-                className="flex flex-col gap-1 p-5 sm:flex-row sm:items-center sm:gap-6"
+                className="flex flex-col gap-1 p-5 transition-colors hover:bg-secondary/40 sm:flex-row sm:items-center sm:gap-6"
               >
-                <span className="font-display text-lg font-semibold text-primary sm:w-36 sm:shrink-0">
+                <span className="font-display text-lg font-semibold text-primary tabular sm:w-36 sm:shrink-0">
                   {amount}
                 </span>
                 <span className="text-sm text-muted-foreground">{covers}</span>
@@ -191,7 +185,7 @@ export default async function ProjectPage({ params }: Params) {
             </div>
           </div>
 
-          <div className="mt-6 rounded-2xl bg-card p-7 ring-1 ring-border">
+          <div className="card-surface mt-6 p-7">
             <h2 className="text-base font-semibold">Questions about this project?</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Speak to {site.contactPerson.name} directly.
@@ -223,9 +217,9 @@ export default async function ProjectPage({ params }: Params) {
               <li key={other.slug}>
                 <Link
                   href={`/projects/${other.slug}`}
-                  className="group flex h-full flex-col rounded-2xl bg-card p-6 ring-1 ring-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25"
+                  className="group card-surface flex h-full flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25"
                 >
-                  <span className="grid size-11 place-items-center rounded-xl bg-secondary text-primary">
+                  <span className="grid size-11 place-items-center rounded-xl bg-secondary text-primary ring-1 ring-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                     <other.icon className="size-5" />
                   </span>
                   <h3 className="mt-5 text-lg font-semibold transition-colors group-hover:text-primary">

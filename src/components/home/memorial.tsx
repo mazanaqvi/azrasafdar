@@ -4,44 +4,37 @@ import { memorial, site } from "@/lib/site";
 
 export function Memorial() {
   return (
-    <section className="relative isolate overflow-hidden bg-brand-deep text-primary-foreground">
-      <div
-        aria-hidden
-        className="brand-arc absolute -left-32 -top-48 -z-10 size-[34rem] [--arc-r:16rem] opacity-40"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-lime/60 to-transparent"
-      />
+    <section className="relative isolate overflow-hidden border-y border-border">
+      <div aria-hidden className="surface-tint absolute inset-0 -z-10" />
 
       <div className="container-page py-16 sm:py-20">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
-          <div className="lg:w-72 lg:shrink-0">
-            <h2 className="eyebrow text-lime">In their memory</h2>
-            <p className="mt-3 text-lg leading-snug text-primary-foreground/80">
-              {site.name} is also known as {memorial.initialism} — three
-              initials, for the three people it was founded to remember.
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-20">
+          <div className="lg:w-80 lg:shrink-0">
+            <h2 className="eyebrow">In their memory</h2>
+            <p className="mt-4 text-lg leading-snug text-foreground">
+              {site.name} is also known as {memorial.initialism}. The three
+              initials stand for the three people it was founded to remember.
             </p>
             <Link
               href="/about"
-              className="group mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-lime hover:underline"
+              className="group mt-7 inline-flex items-center gap-1.5 border-b border-primary/30 pb-0.5 text-sm font-semibold text-primary transition-colors hover:border-primary"
             >
               Read our history
               <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
 
-          <ul className="grid flex-1 gap-x-8 gap-y-8 sm:grid-cols-3 lg:divide-x lg:divide-white/12">
-            {memorial.remembered.map(({ initial, name }, index) => (
-              <li key={name} className={index > 0 ? "lg:pl-8" : undefined}>
-                {/* Decorative: the name that follows already reads it out. */}
+          <ul className="grid flex-1 gap-8 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-primary/12">
+            {memorial.remembered.map(({ initial, name }) => (
+              <li key={name} className="sm:px-8 sm:first:pl-0 sm:last:pr-0">
+                {/* Decorative: the name below already reads it out. */}
                 <span
                   aria-hidden
-                  className="block font-display text-[clamp(2.25rem,4vw,3rem)] font-semibold leading-none tracking-tight text-lime"
+                  className="block font-display text-[clamp(2.5rem,4.5vw,3.25rem)] font-semibold leading-none tracking-tight text-primary/55"
                 >
                   {initial}
                 </span>
-                <span className="mt-3 block leading-snug text-primary-foreground/85">
+                <span className="mt-4 block font-display text-lg leading-snug text-foreground">
                   {name}
                 </span>
               </li>

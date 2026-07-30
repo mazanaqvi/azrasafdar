@@ -7,7 +7,6 @@ export function SectionHeading({
   description,
   action,
   align = "start",
-  tone = "light",
   className,
 }: {
   eyebrow?: string;
@@ -15,7 +14,6 @@ export function SectionHeading({
   description?: string;
   action?: ReactNode;
   align?: "start" | "center";
-  tone?: "light" | "dark";
   className?: string;
 }) {
   const centered = align === "center";
@@ -34,38 +32,19 @@ export function SectionHeading({
             className={cn(
               "eyebrow flex items-center gap-2.5",
               centered && "justify-center",
-              tone === "dark" && "text-lime",
             )}
           >
-            <span
-              aria-hidden
-              className={cn(
-                "h-px w-6",
-                tone === "dark" ? "bg-lime/50" : "bg-primary/40",
-              )}
-            />
+            <span aria-hidden className="h-px w-6 bg-primary/40" />
             {eyebrow}
           </p>
         )}
 
-        <h2
-          className={cn(
-            "mt-4 text-[clamp(1.85rem,3.4vw,2.75rem)] font-semibold leading-[1.12]",
-            tone === "dark" && "text-primary-foreground",
-          )}
-        >
+        <h2 className="mt-4 text-[clamp(1.85rem,3.4vw,2.75rem)] font-semibold leading-[1.12]">
           {title}
         </h2>
 
         {description && (
-          <p
-            className={cn(
-              "mt-4 text-lg leading-relaxed",
-              tone === "dark"
-                ? "text-primary-foreground/70"
-                : "text-muted-foreground",
-            )}
-          >
+          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
             {description}
           </p>
         )}

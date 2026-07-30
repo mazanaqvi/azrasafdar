@@ -31,7 +31,7 @@ export default function DonatePage() {
         description="We do not yet accept card payments online. Donations are made by bank transfer, and every rupee is tracked against the project it funds."
       />
 
-      <div className="container-page grid gap-12 py-16 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      <div className="container-page grid gap-12 py-20 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
         <div>
           <h2 className="text-2xl font-bold">Bank transfer details</h2>
           <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -48,7 +48,7 @@ export default function DonatePage() {
             <CopyField label="SWIFT / BIC" value={bankDetails.swift} />
           </div>
 
-          <div className="mt-8 flex gap-3 rounded-xl border border-primary/20 bg-secondary/50 p-5">
+          <div className="mt-8 flex gap-3 rounded-2xl bg-secondary/50 p-5 ring-1 ring-primary/15">
             <InfoIcon className="mt-0.5 size-5 shrink-0 text-primary" />
             <div className="text-sm leading-relaxed text-muted-foreground">
               <p className="font-medium text-foreground">
@@ -81,13 +81,16 @@ export default function DonatePage() {
         <div>
           <h2 className="text-2xl font-bold">What your donation covers</h2>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            Indicative costs based on what we actually spend.
+            Indicative costs, based on what we spend.
           </p>
 
-          <dl className="mt-8 divide-y divide-border rounded-xl border border-border bg-card">
+          <dl className="card-surface mt-8 divide-y divide-border overflow-hidden">
             {allocations.map(({ amount, covers }) => (
-              <div key={amount} className="flex flex-col gap-1 p-5 sm:flex-row sm:items-center sm:gap-6">
-                <dt className="font-heading text-lg font-semibold text-primary sm:w-36 sm:shrink-0">
+              <div
+                key={amount}
+                className="flex flex-col gap-1 p-5 transition-colors hover:bg-secondary/40 sm:flex-row sm:items-center sm:gap-6"
+              >
+                <dt className="font-heading text-lg font-semibold text-primary tabular sm:w-36 sm:shrink-0">
                   {amount}
                 </dt>
                 <dd className="text-sm leading-relaxed text-muted-foreground">
@@ -97,20 +100,17 @@ export default function DonatePage() {
             ))}
           </dl>
 
-          <div className="mt-8 rounded-xl bg-brand-deep p-7 text-primary-foreground">
+          <div className="mt-8 rounded-2xl bg-secondary/60 p-7 ring-1 ring-primary/15">
             <h3 className="font-heading text-lg font-semibold">
               Can&apos;t donate right now?
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-primary-foreground/75">
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Volunteering keeps our costs down, which stretches every donation
               further.
             </p>
             <Link
               href="/volunteer"
-              className={cn(
-                buttonVariants(),
-                "mt-5 h-11 bg-lime px-6 text-base text-lime-foreground hover:bg-lime/85",
-              )}
+              className={cn(buttonVariants(), "mt-5 h-11 px-6 text-base")}
             >
               Volunteer instead
             </Link>

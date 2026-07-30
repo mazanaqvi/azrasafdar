@@ -12,14 +12,8 @@ export function PageHeader({
 }) {
   return (
     <section className="relative isolate overflow-hidden border-b border-border">
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-linear-to-br from-brand-tint via-background to-secondary/60"
-      />
-      <div
-        aria-hidden
-        className="brand-arc absolute -right-40 -top-56 -z-10 size-[40rem] [--arc-r:18rem] opacity-60"
-      />
+      <div aria-hidden className="surface-wash absolute inset-0 -z-20" />
+      <div aria-hidden className="surface-grid absolute inset-0 -z-10" />
 
       <div className="container-page py-16 sm:py-20 lg:py-24">
         <nav aria-label="Breadcrumb">

@@ -11,11 +11,11 @@ export function NewsCard({
   featured?: boolean;
 }) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl bg-card ring-1 ring-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25">
+    <article className="group card-surface relative flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25">
       {/* Accent bar animates in on hover to signal interactivity. */}
       <span
         aria-hidden
-        className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-linear-to-r from-primary to-lime transition-transform duration-300 group-hover:scale-x-100"
+        className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-linear-to-r from-primary to-lime transition-transform duration-300 group-hover:scale-x-100"
       />
 
       <div
