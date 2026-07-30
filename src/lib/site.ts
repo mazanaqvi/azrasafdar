@@ -13,7 +13,7 @@ export const site = {
     "Azra Safdar Foundation is an education-led non-profit based in Faisalabad, Pakistan. We keep students in school through free education and tutorship, and support widows and families with healthcare and Ramzan ration packs.",
   url: "https://azrasafdar.org",
   locale: "en_PK",
-  founded: 2019, // TODO: confirm the year the foundation started
+  founded: 2017,
   // TODO: temporary. Replace both with a mailbox on azrasafdar.org once it
   // exists — these are shown publicly in the footer and on the contact page,
   // and they are where form submissions are delivered.
@@ -38,6 +38,20 @@ export const site = {
     youtube: "https://youtube.com/", // TODO: confirm
     whatsapp: "https://wa.me/923076699514",
   },
+} as const;
+
+/**
+ * The foundation is a memorial one. NGN is built from the initials of the three
+ * people it was founded to remember, in order, and the order matters — it is
+ * where the name comes from.
+ */
+export const memorial = {
+  initialism: "NGN",
+  remembered: [
+    { initial: "N", name: "Syed Ali Naqi" },
+    { initial: "G", name: "Syeda Ghazia Zameer" },
+    { initial: "N", name: "Syed Naji Ullah" },
+  ],
 } as const;
 
 export const telHref = `tel:+${site.phoneDigits}`;

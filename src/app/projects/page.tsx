@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 function ProjectCard({ project }: { project: Project }) {
-  const { slug, title, summary, icon: Icon, stat, seasonal } = project;
+  const { slug, title, summary, icon: Icon, focus, seasonal } = project;
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-card p-8 ring-1 ring-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lift hover:ring-primary/25">
@@ -50,11 +50,9 @@ function ProjectCard({ project }: { project: Project }) {
       </p>
 
       <div className="mt-6 flex items-center justify-between gap-4 border-t border-border pt-5">
-        <span className="text-sm text-muted-foreground">
-          <span className="font-display text-lg font-semibold text-primary">
-            {stat.value}
-          </span>{" "}
-          {stat.label}
+        <span className="flex items-center gap-2.5 text-sm text-muted-foreground">
+          <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-lime" />
+          {focus}
         </span>
         <ArrowRightIcon className="size-4 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
       </div>

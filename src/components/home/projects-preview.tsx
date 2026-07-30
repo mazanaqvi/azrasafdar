@@ -27,7 +27,7 @@ export function ProjectsPreview() {
       />
 
       <ul className="mt-14 grid gap-6 md:grid-cols-2">
-        {educationProjects.map(({ slug, title, summary, icon: Icon, stat }, index) => (
+        {educationProjects.map(({ slug, title, summary, icon: Icon, focus }, index) => (
           <li key={slug}>
             <Link
               href={`/projects/${slug}`}
@@ -58,11 +58,12 @@ export function ProjectsPreview() {
               </p>
 
               <div className="mt-6 flex items-center justify-between gap-4 border-t border-border pt-5">
-                <span className="text-sm text-muted-foreground">
-                  <span className="font-display text-lg font-semibold text-primary">
-                    {stat.value}
-                  </span>{" "}
-                  {stat.label}
+                <span className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                  <span
+                    aria-hidden
+                    className="size-1.5 shrink-0 rounded-full bg-lime"
+                  />
+                  {focus}
                 </span>
                 <ArrowRightIcon className="size-4 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
               </div>

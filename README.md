@@ -37,8 +37,10 @@ These need real values. Each is marked with a `TODO` comment in the source.
    and the gallery page were removed, and every layout was reflowed to be
    text-led, so nothing looks unfinished. See "Adding photography back" below.
 3. **Project copy and figures** — `src/lib/projects.ts` contains the five
-   project descriptions and the impact statistics. The numbers are
-   placeholders and should be replaced with audited figures.
+   project descriptions. Unverified achievement statistics have been removed
+   from the site, so the only remaining figures are the indicative `costs`
+   amounts on each project and the donate page. Replace those with real
+   amounts, and add impact statistics only once they are audited.
 4. **Email addresses** — `site.email` and `site.volunteerEmail` in
    `src/lib/site.ts` are temporarily a personal Gmail address. They are shown
    publicly and are where form submissions are delivered, so replace them with

@@ -40,7 +40,7 @@ export default async function ProjectPage({ params }: Params) {
     summary,
     body,
     icon: Icon,
-    stat,
+    focus,
     highlights,
     costs,
     needs,
@@ -107,12 +107,10 @@ export default async function ProjectPage({ params }: Params) {
               {summary}
             </p>
 
-            <div className="mt-8 inline-flex items-baseline gap-3 rounded-2xl bg-background/80 px-5 py-4 shadow-xs ring-1 ring-border backdrop-blur">
-              <span className="font-display text-3xl font-semibold text-primary">
-                {stat.value}
-              </span>
-              <span className="text-sm text-muted-foreground">{stat.label}</span>
-            </div>
+            <p className="mt-8 inline-flex items-center gap-2.5 rounded-full bg-background/80 px-5 py-2.5 text-sm font-medium text-primary shadow-xs ring-1 ring-border backdrop-blur">
+              <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-lime" />
+              {focus}
+            </p>
           </div>
         </div>
       </section>

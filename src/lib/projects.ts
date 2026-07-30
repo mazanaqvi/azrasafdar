@@ -24,8 +24,11 @@ export type Project = {
   body: string[];
   icon: LucideIcon;
   pillar: Pillar;
-  /** Displayed as a labelled figure on the project page. */
-  stat: { value: string; label: string };
+  /**
+   * How the project runs, in one line — its cadence or commitment rather than
+   * a headline figure. Shown on cards and at the top of the project page.
+   */
+  focus: string;
   highlights: string[];
   /** What a supporter's money buys on this specific project. */
   costs: { amount: string; covers: string }[];
@@ -35,8 +38,9 @@ export type Project = {
 };
 
 /**
- * TODO: every figure and description below is a placeholder written from the
- * project titles. Replace with the foundation's real numbers and wording.
+ * TODO: the descriptions below were written from the project titles, and the
+ * `costs` amounts are indicative rather than audited. Replace both with the
+ * foundation's own wording and figures.
  */
 export const projects: Project[] = [
   {
@@ -52,7 +56,7 @@ export const projects: Project[] = [
     ],
     icon: GraduationCapIcon,
     pillar: "education",
-    stat: { value: "2,400+", label: "students supported to date" },
+    focus: "Enrolled for a full academic year at a time",
     highlights: [
       "Fees paid directly to the school, never in cash",
       "Uniforms, textbooks and stationery for the full academic year",
@@ -83,7 +87,7 @@ export const projects: Project[] = [
     ],
     icon: BookOpenCheck,
     pillar: "education",
-    stat: { value: "310", label: "students tutored every week" },
+    focus: "Small-group sessions every week after school",
     highlights: [
       "Free after-school tuition in mathematics, English and science",
       "Small groups so struggling students are spotted early",
@@ -114,7 +118,7 @@ export const projects: Project[] = [
     ],
     icon: ShoppingBasketIcon,
     pillar: "welfare",
-    stat: { value: "6,500", label: "ration packs distributed" },
+    focus: "Delivered to the door before Ramzan begins",
     highlights: [
       "A full month of staples: flour, rice, oil, pulses, sugar, tea and dates",
       "Delivered to the home, so no family has to queue in public",
@@ -146,7 +150,7 @@ export const projects: Project[] = [
     ],
     icon: HandHeartIcon,
     pillar: "welfare",
-    stat: { value: "180", label: "households receiving monthly support" },
+    focus: "Monthly support for as long as the transition takes",
     highlights: [
       "Monthly stipend for verified widow-headed households",
       "Skills training in stitching, embroidery and food production",
@@ -177,7 +181,7 @@ export const projects: Project[] = [
     ],
     icon: HeartPulseIcon,
     pillar: "welfare",
-    stat: { value: "18,000", label: "patients seen at free camps" },
+    focus: "Free camps, with onward referrals covered",
     highlights: [
       "Free medical camps with medicines dispensed on site",
       "Maternal and child health screening",
@@ -203,14 +207,6 @@ export const welfareProjects = projects.filter((p) => p.pillar === "welfare");
 export function getProject(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug);
 }
-
-/** TODO: replace with audited figures before publishing. */
-export const impactStats = [
-  { value: "2,400+", label: "Students supported in school" },
-  { value: "310", label: "Students tutored every week" },
-  { value: "6,500", label: "Ramzan ration packs distributed" },
-  { value: "180", label: "Widow-headed households supported" },
-];
 
 export const values = [
   {
