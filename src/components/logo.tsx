@@ -21,10 +21,10 @@ export function Logo({
       <Image
         src="/logo-mark.png"
         alt=""
-        width={512}
-        height={512}
+        width={433}
+        height={353}
         priority
-        className="size-11 shrink-0 transition-transform group-hover:scale-105 sm:size-12"
+        className="h-11 w-auto shrink-0 object-contain transition-transform group-hover:scale-105 sm:h-12"
       />
       {!compact && (
         <span className="flex flex-col leading-tight">

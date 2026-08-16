@@ -24,8 +24,8 @@ export function SiteFooter() {
               <Image
                 src="/logo-mark.png"
                 alt=""
-                width={512}
-                height={512}
+                width={433}
+                height={353}
                 className="size-full object-contain"
               />
             </span>
