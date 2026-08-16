@@ -80,25 +80,39 @@ await sharp(fullTransparent)
   .png({ compressionLevel: 9 })
   .toFile("public/logo-full.png");
 
-// Favicons. Next.js picks these up automatically from src/app.
+// Favicons must be square. Browsers force a 1:1 slot, so a landscape mark
+// looks stretched in the tab. Trim, then contain with a little padding.
 await mkdir(path.join(process.cwd(), "src", "app"), { recursive: true });
 
-await sharp(emblemTransparent)
-  .resize(512, 512, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+const emblemTrimmed = await sharp(emblemTransparent)
+  .trim({ threshold: 1 })
+  .toBuffer();
+
+async function squareIcon(input, size, { background, padding }) {
+  const inner = size - padding * 2;
+  const fitted = await sharp(input)
+    .resize(inner, inner, { fit: "contain", background })
+    .toBuffer();
+
+  return sharp({
+    create: { width: size, height: size, channels: 4, background },
+  }).composite([{ input: fitted, gravity: "centre" }]);
+}
+
+const transparent = { r: 0, g: 0, b: 0, alpha: 0 };
+const white = { r: 255, g: 255, b: 255, alpha: 1 };
+
+await (
+  await squareIcon(emblemTrimmed, 512, { background: transparent, padding: 36 })
+)
   .png({ compressionLevel: 9 })
   .toFile("src/app/icon.png");
 
 // Apple touch icons are composited on black if left transparent, so give it
 // a white plate with a little breathing room.
-await sharp(emblemTransparent)
-  .resize(160, 160, { fit: "contain", background: { r: 255, g: 255, b: 255, alpha: 1 } })
-  .extend({
-    top: 10,
-    bottom: 10,
-    left: 10,
-    right: 10,
-    background: { r: 255, g: 255, b: 255, alpha: 1 },
-  })
+await (
+  await squareIcon(emblemTrimmed, 180, { background: white, padding: 18 })
+)
   .flatten({ background: "#ffffff" })
   .png({ compressionLevel: 9 })
   .toFile("src/app/apple-icon.png");
