@@ -11,7 +11,6 @@ import {
 } from "@/lib/volunteer";
 import { volunteerMailtoHref } from "@/lib/mailto";
 import { archiveVolunteerApplication } from "@/lib/firebase/submissions";
-import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -73,7 +72,7 @@ export function VolunteerForm() {
         <h2 className="mt-6 text-2xl font-semibold">Your email is ready</h2>
         <p className="mx-auto mt-3 max-w-md leading-relaxed text-muted-foreground">
           We have opened your email app with your application filled in. Send it
-          from there and it reaches us at {site.volunteerEmail}.
+          from there and we will receive it.
         </p>
         <a
           href={draft}

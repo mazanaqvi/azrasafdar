@@ -30,8 +30,8 @@ The site runs at http://localhost:3000.
 
 These need real values. Each is marked with a `TODO` comment in the source.
 
-1. **Foundation details**: `src/lib/site.ts` holds the name, contact email,
-   location and social links. The bank transfer details shown on the
+1. **Foundation details**: `src/lib/site.ts` holds the name, location and social
+   links. The bank transfer details shown on the
    donate page are in the same file.
 2. **Photography**: the site ships with no photography. Placeholder artwork
    and the gallery page were removed, and every layout was reflowed to be
@@ -54,10 +54,10 @@ field catches most bot submissions.
 This needs no configuration and no third-party email provider, and it cannot
 silently drop an enquiry, because the visitor sends the message themselves and
 keeps a copy in their sent folder. The trade-off is that they have to press send
-in their mail client, and a visitor with no mail client configured will need to
-use the address shown on the page instead.
+in their mail client.
 
-Enquiries are addressed to `site.email`, applications to `site.volunteerEmail`.
+Enquiries still use `site.email` and volunteer applications `site.volunteerEmail`
+as the mailto destination, but those addresses are not shown on the site.
 The `mailto:` builder is in `src/lib/mailto.ts`.
 
 ### Firestore archive

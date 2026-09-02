@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ClockIcon, MailIcon, MapPinIcon } from "lucide-react";
+import { ClockIcon, MapPinIcon } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { PageHeader } from "@/components/page-header";
 import { SectionHeading } from "@/components/section-heading";
@@ -11,19 +11,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { mailHref, site } from "@/lib/site";
+import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Contact ${site.name}. Email ${site.contactPerson.name} or send an enquiry through the form.`,
+  description: `Contact ${site.name}. Send an enquiry through the form, and we will get back to you.`,
 };
 
 const faqs = [
   {
     question: "How do I donate?",
     answer:
-      "Donations are made by bank transfer. Our account details are on the donate page. Email us your transfer receipt and we will send a formal acknowledgement.",
+      "Donations are made by bank transfer. Our account details are on the donate page. Send your transfer receipt through the contact form and we will send a formal acknowledgement.",
   },
   {
     question: "Do you accept card or mobile wallet payments?",
@@ -33,7 +33,7 @@ const faqs = [
   {
     question: "How do I request assistance for a family?",
     answer:
-      "Email us with the family's location and situation. We verify every request with a home visit before it enters our intake list, so please allow a little time.",
+      "Use the form on this page with the family's location and situation. We verify every request with a home visit before it enters our intake list, so please allow a little time.",
   },
   {
     question: "How do I apply for a scholarship or free tuition?",
@@ -53,12 +53,6 @@ const faqs = [
 ];
 
 const channels = [
-  {
-    Icon: MailIcon,
-    label: "Email",
-    value: site.email,
-    href: mailHref,
-  },
   {
     Icon: MapPinIcon,
     label: "Based in",
@@ -93,20 +87,10 @@ export default function ContactPage() {
             <p className="mt-1 text-sm text-muted-foreground">
               {site.contactPerson.role} · {site.location}
             </p>
-
-            <div className="mt-6">
-              <a
-                href={mailHref}
-                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-soft transition-colors hover:bg-primary/90 sm:w-auto sm:min-w-56"
-              >
-                <MailIcon className="size-4" />
-                {site.email}
-              </a>
-            </div>
           </div>
 
           <ul className="mt-6 space-y-3">
-            {channels.map(({ Icon, label, value, href }) => (
+            {channels.map(({ Icon, label, value }) => (
               <li
                 key={label}
                 className="flex gap-4 rounded-xl bg-card p-5 ring-1 ring-border"
@@ -118,16 +102,7 @@ export default function ContactPage() {
                   <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     {label}
                   </p>
-                  {href ? (
-                    <a
-                      href={href}
-                      className="mt-1 block font-medium break-words transition-colors hover:text-primary"
-                    >
-                      {value}
-                    </a>
-                  ) : (
-                    <p className="mt-1 font-medium">{value}</p>
-                  )}
+                  <p className="mt-1 font-medium">{value}</p>
                 </div>
               </li>
             ))}

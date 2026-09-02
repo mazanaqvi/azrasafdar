@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MailIcon, MapPinIcon } from "lucide-react";
+import { MapPinIcon } from "lucide-react";
 import { SiFacebook } from "@icons-pack/react-simple-icons";
 import { memorial, navigation, rememberedNames, site } from "@/lib/site";
 
@@ -80,14 +80,13 @@ export function SiteFooter() {
               <MapPinIcon className="mt-0.5 size-4 shrink-0 text-primary" />
               <span>{site.location}</span>
             </li>
-            <li className="flex gap-3">
-              <MailIcon className="mt-0.5 size-4 shrink-0 text-primary" />
-              <a
-                href={`mailto:${site.email}`}
+            <li>
+              <Link
+                href="/contact"
                 className="transition-colors hover:text-primary"
               >
-                {site.email}
-              </a>
+                Send a message
+              </Link>
             </li>
           </ul>
         </div>

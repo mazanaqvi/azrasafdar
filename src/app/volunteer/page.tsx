@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ClockIcon, HeartHandshakeIcon, MapPinIcon } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { VolunteerForm } from "@/components/volunteer-form";
-import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Volunteer with us",
@@ -52,19 +51,6 @@ export default function VolunteerPage() {
               </div>
             </div>
           ))}
-
-          <div className="rounded-xl border border-border bg-secondary/40 p-5">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Rather write it yourself? Email us at{" "}
-              <a
-                href={`mailto:${site.volunteerEmail}`}
-                className="font-medium text-primary hover:underline"
-              >
-                {site.volunteerEmail}
-              </a>
-              .
-            </p>
-          </div>
         </div>
 
         <VolunteerForm />

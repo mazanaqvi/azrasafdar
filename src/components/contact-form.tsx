@@ -22,7 +22,6 @@ import {
 } from "@/lib/contact";
 import { contactMailtoHref } from "@/lib/mailto";
 import { archiveContactEnquiry } from "@/lib/firebase/submissions";
-import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export function ContactForm() {
@@ -71,7 +70,7 @@ export function ContactForm() {
         <h2 className="mt-6 text-2xl font-semibold">Your email is ready</h2>
         <p className="mx-auto mt-3 max-w-md leading-relaxed text-muted-foreground">
           We have opened your email app with the message filled in. Send it from
-          there and it reaches us at {site.email}.
+          there and we will receive it.
         </p>
         <a
           href={draft}

@@ -48,8 +48,6 @@ export const rememberedNames = new Intl.ListFormat("en-GB", {
   type: "conjunction",
 }).format(memorial.remembered.map(({ name }) => name));
 
-export const mailHref = `mailto:${site.email}`;
-
 /**
  * Shown on the donate page. No online payment gateway is wired up yet, so
  * these details are the only way supporters can contribute.
