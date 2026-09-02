@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
+import { MailIcon, MapPinIcon } from "lucide-react";
 import { SiFacebook } from "@icons-pack/react-simple-icons";
 import { memorial, navigation, rememberedNames, site } from "@/lib/site";
 
@@ -87,15 +87,6 @@ export function SiteFooter() {
                 className="transition-colors hover:text-primary"
               >
                 {site.email}
-              </a>
-            </li>
-            <li className="flex gap-3">
-              <PhoneIcon className="mt-0.5 size-4 shrink-0 text-primary" />
-              <a
-                href={`tel:${site.phone.replace(/\s/g, "")}`}
-                className="transition-colors hover:text-primary"
-              >
-                {site.phone}
               </a>
             </li>
           </ul>

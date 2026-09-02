@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRightIcon, CheckIcon, MessageCircleIcon } from "lucide-react";
+import { ArrowRightIcon, CheckIcon, MailIcon } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { getProject, projects } from "@/lib/projects";
-import { site, whatsappHref } from "@/lib/site";
+import { mailHref, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -188,22 +188,14 @@ export default async function ProjectPage({ params }: Params) {
           <div className="card-surface mt-6 p-7">
             <h2 className="text-base font-semibold">Questions about this project?</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Speak to {site.contactPerson.name} directly.
+              Email {site.contactPerson.name} and we will get back to you.
             </p>
             <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer noopener"
+              href={mailHref}
               className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-lime px-4 text-sm font-semibold text-lime-foreground transition-colors hover:bg-lime/85"
             >
-              <MessageCircleIcon className="size-4" />
-              Message on WhatsApp
-            </a>
-            <a
-              href={`tel:+${site.phoneDigits}`}
-              className="mt-3 block text-center text-sm font-medium text-primary hover:underline"
-            >
-              {site.phone}
+              <MailIcon className="size-4" />
+              {site.email}
             </a>
           </div>
         </aside>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ClockIcon, MailIcon, MapPinIcon, MessageCircleIcon, PhoneIcon } from "lucide-react";
+import { ClockIcon, MailIcon, MapPinIcon } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { PageHeader } from "@/components/page-header";
 import { SectionHeading } from "@/components/section-heading";
@@ -11,19 +11,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { mailHref, site, telHref, whatsappHref } from "@/lib/site";
+import { mailHref, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Contact ${site.name}. Speak to ${site.contactPerson.name} on ${site.phone}, message us on WhatsApp, or send an enquiry through the form.`,
+  description: `Contact ${site.name}. Email ${site.contactPerson.name} or send an enquiry through the form.`,
 };
 
 const faqs = [
   {
     question: "How do I donate?",
     answer:
-      "Donations are made by bank transfer. Our account details are on the donate page. Send us your transfer receipt on WhatsApp or by email and we will send a formal acknowledgement.",
+      "Donations are made by bank transfer. Our account details are on the donate page. Email us your transfer receipt and we will send a formal acknowledgement.",
   },
   {
     question: "Do you accept card or mobile wallet payments?",
@@ -33,7 +33,7 @@ const faqs = [
   {
     question: "How do I request assistance for a family?",
     answer:
-      "Call or message us with the family's location and situation. We verify every request with a home visit before it enters our intake list, so please allow a little time.",
+      "Email us with the family's location and situation. We verify every request with a home visit before it enters our intake list, so please allow a little time.",
   },
   {
     question: "How do I apply for a scholarship or free tuition?",
@@ -53,21 +53,6 @@ const faqs = [
 ];
 
 const channels = [
-  {
-    Icon: PhoneIcon,
-    label: "Phone",
-    value: site.phone,
-    href: telHref,
-    note: `Ask for ${site.contactPerson.name}`,
-  },
-  {
-    Icon: MessageCircleIcon,
-    label: "WhatsApp",
-    value: site.phone,
-    href: whatsappHref,
-    note: "Usually the fastest way to reach us",
-    external: true,
-  },
   {
     Icon: MailIcon,
     label: "Email",
@@ -109,28 +94,19 @@ export default function ContactPage() {
               {site.contactPerson.role} · {site.location}
             </p>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6">
               <a
-                href={telHref}
-                className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-soft transition-colors hover:bg-primary/90"
+                href={mailHref}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-soft transition-colors hover:bg-primary/90 sm:w-auto sm:min-w-56"
               >
-                <PhoneIcon className="size-4" />
-                {site.phone}
-              </a>
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-border-strong bg-background px-4 text-sm font-semibold transition-colors hover:bg-muted"
-              >
-                <MessageCircleIcon className="size-4" />
-                WhatsApp
+                <MailIcon className="size-4" />
+                {site.email}
               </a>
             </div>
           </div>
 
           <ul className="mt-6 space-y-3">
-            {channels.map(({ Icon, label, value, href, note, external }) => (
+            {channels.map(({ Icon, label, value, href }) => (
               <li
                 key={label}
                 className="flex gap-4 rounded-xl bg-card p-5 ring-1 ring-border"
@@ -145,18 +121,12 @@ export default function ContactPage() {
                   {href ? (
                     <a
                       href={href}
-                      {...(external
-                        ? { target: "_blank", rel: "noreferrer noopener" }
-                        : {})}
                       className="mt-1 block font-medium break-words transition-colors hover:text-primary"
                     >
                       {value}
                     </a>
                   ) : (
                     <p className="mt-1 font-medium">{value}</p>
-                  )}
-                  {note && (
-                    <p className="mt-1 text-sm text-muted-foreground">{note}</p>
                   )}
                 </div>
               </li>

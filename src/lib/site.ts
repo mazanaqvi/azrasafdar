@@ -16,9 +16,6 @@ export const site = {
   founded: 2017,
   email: "info@azrasafdar.org",
   volunteerEmail: "info@azrasafdar.org",
-  phone: "+92 307 6699514",
-  // Digits only, including country code, for tel: and wa.me links.
-  phoneDigits: "923076699514",
   contactPerson: {
     name: "Syed Zesshan Safdar",
     role: "Foundation Lead",
@@ -51,13 +48,7 @@ export const rememberedNames = new Intl.ListFormat("en-GB", {
   type: "conjunction",
 }).format(memorial.remembered.map(({ name }) => name));
 
-export const telHref = `tel:+${site.phoneDigits}`;
 export const mailHref = `mailto:${site.email}`;
-
-/** Pre-filled WhatsApp message so enquiries arrive with context. */
-export const whatsappHref = `https://wa.me/${site.phoneDigits}?text=${encodeURIComponent(
-  "Assalam o Alaikum, I found the Azra Safdar Foundation website and would like to know more.",
-)}`;
 
 /**
  * Shown on the donate page. No online payment gateway is wired up yet, so

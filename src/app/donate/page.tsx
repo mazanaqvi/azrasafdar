@@ -4,7 +4,7 @@ import { InfoIcon } from "lucide-react";
 import { CopyField } from "@/components/copy-field";
 import { PageHeader } from "@/components/page-header";
 import { buttonVariants } from "@/components/ui/button";
-import { bankDetails, mailHref, site, whatsappHref } from "@/lib/site";
+import { bankDetails, mailHref, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -55,16 +55,7 @@ export default function DonatePage() {
                 Please send us your transfer receipt
               </p>
               <p className="mt-1.5">
-                Send it on{" "}
-                <a
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="font-medium text-primary hover:underline"
-                >
-                  WhatsApp ({site.phone})
-                </a>{" "}
-                or email it to{" "}
+                Email it to{" "}
                 <a href={mailHref} className="font-medium text-primary hover:underline">
                   {site.email}
                 </a>{" "}

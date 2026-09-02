@@ -31,7 +31,7 @@ The site runs at http://localhost:3000.
 These need real values. Each is marked with a `TODO` comment in the source.
 
 1. **Foundation details**: `src/lib/site.ts` holds the name, contact email,
-   phone, location and social links. The bank transfer details shown on the
+   location and social links. The bank transfer details shown on the
    donate page are in the same file.
 2. **Photography**: the site ships with no photography. Placeholder artwork
    and the gallery page were removed, and every layout was reflowed to be
