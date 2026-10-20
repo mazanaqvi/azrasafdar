@@ -11,7 +11,7 @@ export const site = {
   tagline: "Empowering students, enriching futures",
   description:
     "Azra Safdar Foundation is an education-led non-profit in Pakistan. We keep students in school through free education and tutorship, and support widows and families with healthcare and Ramzan ration packs.",
-  url: "https://azrasafdar.org",
+  url: "https://www.azrasafdar.org",
   locale: "en_PK",
   founded: 2017,
   email: "info@azrasafdar.org",

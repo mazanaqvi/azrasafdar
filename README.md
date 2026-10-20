@@ -3,7 +3,7 @@
 Website for Azra Safdar Foundation, a non-profit working across Pakistan.
 
 Built with Next.js 16 (App Router), TypeScript, Tailwind CSS 4 and shadcn/ui.
-Hosted on Vercel. Firebase is used only for Firestore, which archives contact
+Hosted on Railway. Firebase is used only for Firestore, which archives contact
 and volunteer form submissions.
 
 ## Getting started
@@ -172,16 +172,15 @@ deployment — the rest of the site can stay static.
 
 ## Deployment
 
-Hosted on Vercel, which needs no build configuration for Next.js. Import
-`github.com/mazanaqvi/azrasafdar` at [vercel.com/new](https://vercel.com/new)
-and push to `main` to deploy.
+Hosted on Railway, project `azra-safdar-foundation`, service `web`. Railway
+detects Next.js and runs `npm run build` then `npm start`; no config file is
+needed. Deploy from the repo root with:
 
-`vercel.json` pins Vercel Functions to Mumbai (`bom1`), the closest region to
-Pakistan. Builds always run in Washington regardless; only request handling is
-affected.
+```
+railway up
+```
 
-Set these in Vercel under Settings → Environment Variables, for Production,
-Preview and Development:
+Set these on the `web` service under Variables:
 
 ```
 NEXT_PUBLIC_FIREBASE_API_KEY
@@ -197,23 +196,23 @@ redeploy, not just a restart. Values are in `.env.local`.
 
 ### Domain
 
-`azrasafdar.org` is registered with GoDaddy, and `site.url` in
-`src/lib/site.ts` already points at it — that value feeds the sitemap,
-robots.txt and share metadata.
+`azrasafdar.org` is registered with GoDaddy, and DNS is managed there.
+`www.azrasafdar.org` is the primary: it is a custom domain on the Railway
+service, and `site.url` in `src/lib/site.ts` points at it. That value feeds
+the sitemap, robots.txt and share metadata.
 
-The apex domain is the primary; `www` redirects to it. To connect it, add both
-`azrasafdar.org` and `www.azrasafdar.org` in Vercel under Settings → Domains,
-then copy the **A record IP and CNAME target Vercel shows you** into GoDaddy's
-DNS manager. Do not reuse values from a guide: Vercel assigns each project its
-own Anycast IP and its own `*.vercel-dns-*.com` CNAME target.
+Railway needs a CNAME on every domain, and GoDaddy cannot put a CNAME on the
+apex, so the apex uses GoDaddy's domain forwarding (301 to
+`https://www.azrasafdar.org`) instead. In GoDaddy DNS:
 
-In GoDaddy, delete the parked-page records GoDaddy creates by default (an `A`
-record on `@` pointing at their holding page, and the `www` CNAME), or they
-will conflict.
+- `www` is a CNAME to the target Railway shows for the domain
+  (`railway domain status <id>`), plus the `_railway-verify.www` TXT record.
+- `@` has no records of our own; forwarding manages its A records.
+- The Zoho mail records (MX, SPF, DKIM, DMARC) are unrelated; leave them.
 
 If you ever add a CAA record to the domain, it must include
-`0 issue "letsencrypt.org"` or Vercel cannot issue the SSL certificate.
+`0 issue "letsencrypt.org"` or Railway cannot issue the SSL certificate.
 
 > Firebase App Hosting was the original plan but requires the Blaze
-> pay-as-you-go plan. Vercel's free tier runs this app in full, Server Actions
-> included, and Firestore stays free on Spark.
+> pay-as-you-go plan. The site ran on Vercel before moving to Railway, which
+> runs it as a plain `next start` server. Firestore stays free on Spark.
